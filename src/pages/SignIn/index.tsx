@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ButtonContainer,
     Container,
     CreateAccountButton,
     CreateAccountButtonText,
@@ -25,10 +26,19 @@ const SignIn: React.FC = () => (
         <LoginText>Login</LoginText>
 
         <InputContainer>
-            <Input name="user" icon="account" placeholder="CPF/CNPJ" />
+            <Input name="user" icon="user" placeholder="CPF/CNPJ" />
             <Input name="password" icon="lock" placeholder="Senha" />
         </InputContainer>
-        <Button>ENTRAR</Button>
+
+        <ButtonContainer>
+            <Button
+                onPress={() => {
+                    console.log('sorvetão');
+                }}
+            >
+                ENTRAR
+            </Button>
+        </ButtonContainer>
 
         <CreateAccountButton>
             <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
