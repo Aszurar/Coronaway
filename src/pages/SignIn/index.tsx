@@ -3,6 +3,7 @@ import {
     Container,
     CreateAccountButton,
     CreateAccountButtonText,
+    InputContainer,
     ForgotPassword,
     ForgotPasswordText,
     LoginText,
@@ -23,9 +24,12 @@ const SignIn: React.FC = () => (
 
         <LoginText>Login</LoginText>
 
+        <InputContainer>
+            <Input name="user" icon="account" placeholder="CPF/CNPJ" />
+            <Input name="password" icon="lock" placeholder="Senha" />
+        </InputContainer>
         <Button>ENTRAR</Button>
 
-        <Input />
         <CreateAccountButton>
             <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
         </CreateAccountButton>

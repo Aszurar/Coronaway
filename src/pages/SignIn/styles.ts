@@ -35,7 +35,12 @@ export const LoginText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
     font-size: 24px;
-    margin: 210px 0 12px;
+    margin: 170px 0 12px;
+`;
+
+export const InputContainer = styled.View`
+    margin-bottom: 16px;
+    width: 100%;
 `;
 
 export const CreateAccountButton = styled.TouchableOpacity`
