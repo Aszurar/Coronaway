@@ -17,7 +17,7 @@ export const TitleContainer = styled.View`
 
 export const Title = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
-    font-size: 56px;
+    font-size: 50px;
     line-height: 173px;
     color: #f8f8f8;
     font-style: normal;
@@ -26,7 +26,7 @@ export const Title = styled.Text`
 export const TitleSpan = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
     color: #06bd58;
-    font-size: 56px;
+    font-size: 50px;
     line-height: 173px;
     font-style: normal;
 `;
@@ -36,6 +36,11 @@ export const LoginText = styled.Text`
     color: #fff;
     font-size: 24px;
     margin: 210px 0 12px;
+`;
+
+export const ButtonContainer = styled.View`
+    margin-bottom: 15px;
+    width: 100%;
 `;
 
 export const CreateAccountButton = styled.TouchableOpacity`

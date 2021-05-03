@@ -9,20 +9,24 @@ import {
     Title,
     TitleSpan,
     TitleContainer,
+    ButtonContainer
 } from './styles';
 
 import Button from '../../components/Button';
 
-const SignIn: React.FC = () => (
+const SignUp: React.FC = () => (
     <Container>
         <TitleContainer>
             <Title>Coron</Title>
             <TitleSpan>Away</TitleSpan>
         </TitleContainer>
 
-        <LoginText>Login</LoginText>
+        <LoginText>Cadastrar</LoginText>
 
-        <Button>ENTRAR</Button>
+        <ButtonContainer>
+            <Button>Usuário</Button>
+        </ButtonContainer>
+        <Button>Estabelecimento</Button>
 
         <CreateAccountButton>
             <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
@@ -34,4 +38,4 @@ const SignIn: React.FC = () => (
     </Container>
 );
 
-export default SignIn;
+export default SignUp;
