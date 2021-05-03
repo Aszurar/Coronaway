@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,5 +51,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>itc-avant-garde-gothic-std-bold.otf</string>
+		<string>itc-avant-garde-gothic-std-book.otf</string>
+		<string>itc-avant-garde-gothic-std-demi.otf</string>
+        <string>Feather.ttf</string>
+    </array>
 </dict>
 </plist>

@@ -12,7 +12,6 @@ import {
 } from './styles';
 
 import Button from '../../components/Button';
-import Input from '../../components/Input';
 
 const SignIn: React.FC = () => (
     <Container>
@@ -25,7 +24,6 @@ const SignIn: React.FC = () => (
 
         <Button>ENTRAR</Button>
 
-        <Input />
         <CreateAccountButton>
             <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
         </CreateAccountButton>
