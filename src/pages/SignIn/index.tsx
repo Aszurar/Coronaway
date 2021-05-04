@@ -11,43 +11,45 @@ import {
     Title,
     TitleSpan,
     TitleContainer,
+    ImageBg,
 } from './styles';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
-const SignIn: React.FC = () => (
-    <Container>
-        <TitleContainer>
-            <Title>Coron</Title>
-            <TitleSpan>Away</TitleSpan>
-        </TitleContainer>
+import BackgroundMap from '../../assets/images/map.png'
+import {useNavigation} from '@react-navigation/native';
 
-        <LoginText>Login</LoginText>
+const SignIn: React.FC = () => {
+    const navigation = useNavigation();
 
-        <InputContainer>
-            <Input name="user" icon="user" placeholder="CPF/CNPJ" />
-            <Input name="password" icon="lock" placeholder="Senha" />
-        </InputContainer>
+    return(
+        <ImageBg  source={BackgroundMap}>
+            <Container>
+                <TitleContainer>
+                    <Title>Coron</Title>
+                    <TitleSpan>Away</TitleSpan>
+                </TitleContainer>
 
-        <ButtonContainer>
-            <Button
-                onPress={() => {
-                    console.log('sorvetão');
-                }}
-            >
-                ENTRAR
-            </Button>
-        </ButtonContainer>
+                <LoginText>Login</LoginText>
 
-        <CreateAccountButton>
-            <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
-        </CreateAccountButton>
+                <InputContainer>
+                    <Input name="user" icon="account" placeholder="CPF/CNPJ" />
+                    <Input name="password" icon="lock" placeholder="Senha" />
+                </InputContainer>
+                <Button>ENTRAR</Button>
 
-        <ForgotPassword>
-            <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
-        </ForgotPassword>
-    </Container>
-);
+                <CreateAccountButton>
+                    <CreateAccountButtonText onPress={() => {navigation.navigate('SignUp');}}
+                        >Cadastrar-se</CreateAccountButtonText>
+                </CreateAccountButton>
+
+                <ForgotPassword>
+                    <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
+                </ForgotPassword>
+            </Container>
+        </ImageBg>
+    );
+}
 
 export default SignIn;
