@@ -15,6 +15,12 @@ export const TitleContainer = styled.View`
     flex-direction: row;
 `;
 
+export const ImageBg = styled.ImageBackground`   
+    width: 100%;
+    height: 100%;
+    position: absolute;
+`;
+
 export const Title = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
     font-size: 50px;
@@ -31,10 +37,10 @@ export const TitleSpan = styled.Text`
     font-style: normal;
 `;
 
-export const LoginText = styled.Text`
+export const SignUpText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
-    font-size: 24px;
+    font-size: 26px;
     margin: 210px 0 12px;
 `;
 

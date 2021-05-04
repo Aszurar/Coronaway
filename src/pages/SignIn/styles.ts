@@ -38,6 +38,12 @@ export const LoginText = styled.Text`
     margin: 170px 0 12px;
 `;
 
+export const ImageBg = styled.ImageBackground`   
+    width: 100%;
+    height: 100%;
+    position: absolute;
+`;
+
 export const InputContainer = styled.View`
     margin-bottom: 16px;
     width: 100%;

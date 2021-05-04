@@ -10,34 +10,45 @@ import {
     Title,
     TitleSpan,
     TitleContainer,
+    ImageBg,
 } from './styles';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
-const SignIn: React.FC = () => (
-    <Container>
-        <TitleContainer>
-            <Title>Coron</Title>
-            <TitleSpan>Away</TitleSpan>
-        </TitleContainer>
+import BackgroundMap from '../../assets/images/map.png'
+import {useNavigation} from '@react-navigation/native';
 
-        <LoginText>Login</LoginText>
+const SignIn: React.FC = () => {
+    const navigation = useNavigation();
 
-        <InputContainer>
-            <Input name="user" icon="account" placeholder="CPF/CNPJ" />
-            <Input name="password" icon="lock" placeholder="Senha" />
-        </InputContainer>
-        <Button>ENTRAR</Button>
+    return(
+        <ImageBg  source={BackgroundMap}>
+            <Container>
+                <TitleContainer>
+                    <Title>Coron</Title>
+                    <TitleSpan>Away</TitleSpan>
+                </TitleContainer>
 
-        <CreateAccountButton>
-            <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
-        </CreateAccountButton>
+                <LoginText>Login</LoginText>
 
-        <ForgotPassword>
-            <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
-        </ForgotPassword>
-    </Container>
-);
+                <InputContainer>
+                    <Input name="user" icon="account" placeholder="CPF/CNPJ" />
+                    <Input name="password" icon="lock" placeholder="Senha" />
+                </InputContainer>
+                <Button>ENTRAR</Button>
+
+                <CreateAccountButton>
+                    <CreateAccountButtonText onPress={() => {navigation.navigate('SignUp');}}
+                        >Cadastrar-se</CreateAccountButtonText>
+                </CreateAccountButton>
+
+                <ForgotPassword>
+                    <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
+                </ForgotPassword>
+            </Container>
+        </ImageBg>
+    );
+}
 
 export default SignIn;
