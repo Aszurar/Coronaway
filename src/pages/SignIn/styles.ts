@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Platform } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 
 export const Container = styled.View`
     flex: 1;
@@ -17,7 +17,9 @@ export const TitleContainer = styled.View`
 
 export const Title = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
-    font-size: 50px;
+
+    font-size: ${Dimensions.get('window').width * 0.14};
+
     line-height: 173px;
     color: #f8f8f8;
     font-style: normal;
@@ -26,7 +28,9 @@ export const Title = styled.Text`
 export const TitleSpan = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
     color: #06bd58;
-    font-size: 50px;
+
+    font-size: ${Dimensions.get('window').width * 0.14};
+
     line-height: 173px;
     font-style: normal;
 `;
@@ -35,7 +39,8 @@ export const LoginText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
     font-size: 24px;
-    margin: 170px 0 12px;
+    margin-top: ${Dimensions.get('window').height * 0.21};
+    margin-bottom: 16px;
 `;
 
 export const ImageBg = styled.ImageBackground`   
@@ -47,6 +52,10 @@ export const ImageBg = styled.ImageBackground`
 export const InputContainer = styled.View`
     margin-bottom: 16px;
     width: 100%;
+`;
+
+export const ButtonContainer = styled.View`
+    width: 60%;
 `;
 
 export const CreateAccountButton = styled.TouchableOpacity`
