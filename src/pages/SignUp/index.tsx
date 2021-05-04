@@ -1,10 +1,6 @@
 import React from 'react';
 import {
     Container,
-    CreateAccountButton,
-    CreateAccountButtonText,
-    ForgotPassword,
-    ForgotPasswordText,
     SignUpText,
     Title,
     TitleSpan,
@@ -16,25 +12,25 @@ import {
 import BackgroundMap from '../../assets/images/map.png'
 import Button from '../../components/Button';
 
-import {useNavigation} from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
 const SignUp: React.FC = () => {
     const navigation = useNavigation();
 
-    return(
+    return (
         <Container>
-                <ImageBg  source={BackgroundMap}/>
-                <TitleContainer>
-                    <Title>Coron</Title>
-                    <TitleSpan>Away</TitleSpan>
-                </TitleContainer>
+            <ImageBg source={BackgroundMap} />
+            <TitleContainer>
+                <Title>Coron</Title>
+                <TitleSpan>Away</TitleSpan>
+            </TitleContainer>
 
-                <SignUpText>Cadastrar</SignUpText>
+            <SignUpText>Cadastrar</SignUpText>
 
-                <ButtonContainer>
-                    <Button>Usuário</Button>
-                </ButtonContainer>
-                <Button>Estabelecimento</Button>
+            <ButtonContainer>
+                <Button onPress={() => { navigation.navigate('SignUpUser', { itemId: false }) }}>Usuário</Button>
+            </ButtonContainer>
+            <Button onPress={() => { navigation.navigate('SignUpUser', { itemId: true }) }}>Estabelecimento</Button>
         </Container>
     );
 }
