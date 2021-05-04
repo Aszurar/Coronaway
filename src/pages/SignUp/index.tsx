@@ -22,8 +22,8 @@ const SignUp: React.FC = () => {
     const navigation = useNavigation();
 
     return(
-        <ImageBg  source={BackgroundMap}>
-            <Container>
+        <Container>
+                <ImageBg  source={BackgroundMap}/>
                 <TitleContainer>
                     <Title>Coron</Title>
                     <TitleSpan>Away</TitleSpan>
@@ -35,8 +35,7 @@ const SignUp: React.FC = () => {
                     <Button>Usuário</Button>
                 </ButtonContainer>
                 <Button>Estabelecimento</Button>
-            </Container>
-        </ImageBg>
+        </Container>
     );
 }
 

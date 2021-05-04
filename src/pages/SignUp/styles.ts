@@ -16,9 +16,10 @@ export const TitleContainer = styled.View`
 `;
 
 export const ImageBg = styled.ImageBackground`   
-    width: 100%;
-    height: 100%;
+    width: 130%;
+    height: 90%;
     position: absolute;
+    bottom: 12%;
 `;
 
 export const Title = styled.Text`
