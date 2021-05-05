@@ -22,7 +22,7 @@ export const TitleContainer = styled.View`
 export const Title = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
 
-    font-size: ${Dimensions.get('window').width * 0.14};
+    font-size: ${Dimensions.get('window').width * 0.11};
 
     line-height: 173px;
     color: #f8f8f8;
@@ -33,7 +33,7 @@ export const TitleSpan = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-bold';
     color: #06bd58;
 
-    font-size: ${Dimensions.get('window').width * 0.14};
+    font-size: ${Dimensions.get('window').width * 0.11};
 
     line-height: 173px;
     font-style: normal;

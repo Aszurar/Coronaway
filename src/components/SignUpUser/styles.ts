@@ -10,53 +10,30 @@ export const Container = styled.View`
     padding: 0 40px ${Platform.OS === 'android' ? '150' : '40'}px;
 `;
 
-export const TitleContainer = styled.View`
-    margin-top: 20px;
-    flex-direction: row;
-`;
-
-export const Title = styled.Text`
-    font-family: 'itc-avant-garde-gothic-std-bold';
-
-    font-size: ${Dimensions.get('window').width * 0.11};
-
-    line-height: 173px;
-    color: #f8f8f8;
-    font-style: normal;
-`;
-
-export const TitleSpan = styled.Text`
-    font-family: 'itc-avant-garde-gothic-std-bold';
-    color: #06bd58;
-
-    font-size: ${Dimensions.get('window').width * 0.11};
-
-    line-height: 173px;
-    font-style: normal;
-`;
-
-export const LoginText = styled.Text`
+export const SignUpUserText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
     font-size: 24px;
-    margin-top: ${Dimensions.get('window').height * 0.21};
+    width: 100%;
+   
     margin-bottom: 16px;
 `;
 
-export const ImageBg = styled.ImageBackground`   
-    width: 130%;
-    height: 90%;
-    position: absolute;
-    bottom: 12%;
+export const SignUpEstablishmentText = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 16px;
+    text-align: center;
 `;
 
 export const InputContainer = styled.View`
     margin-bottom: 16px;
-    width: 100%;
+    width: ${Dimensions.get('window').width * 0.8}px;
 `;
 
 export const ButtonContainer = styled.View`
-    width: 60%;
+    width: ${Dimensions.get('window').width * 0.8}px;
 `;
 
 export const CreateAccountButton = styled.TouchableOpacity`
@@ -66,7 +43,7 @@ export const CreateAccountButton = styled.TouchableOpacity`
 export const CreateAccountButtonText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-book';
     color: #fff;
-    font-size: ${Dimensions.get('window').width * 0.04};
+    font-size: 20px;
     text-align: center;
     text-decoration: underline;
 `;
@@ -76,7 +53,7 @@ export const ForgotPassword = styled.TouchableOpacity``;
 export const ForgotPasswordText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-book';
     color: #fff;
-    font-size: ${Dimensions.get('window').width * 0.04};
+    font-size: 20px;
     text-align: center;
     text-decoration: underline;
 `;

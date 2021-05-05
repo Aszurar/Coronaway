@@ -30,11 +30,11 @@ const SignUpUser: React.FC = ({ route }: any) => {
 	const { itemId } = route.params;
 
 	return (
-		<Container>
+		<KeyboardAV
+			behavior={Platform.OS === 'android' ? 'padding' : undefined}
+		>
 			<ImageBg source={BackgroundMap} />
-			<KeyboardAV
-				behavior={Platform.OS === 'android' ? 'padding' : undefined}
-			>
+			<Container>
 				<TitleContainer>
 					<Title>Coron</Title>
 					<TitleSpan>Away</TitleSpan>
@@ -63,8 +63,8 @@ const SignUpUser: React.FC = ({ route }: any) => {
 						CADASTRAR
                     </Button>
 				</ButtonContainer>
-			</KeyboardAV>
-		</Container>
+			</Container>
+		</KeyboardAV>
 	);
 }
 

@@ -28,9 +28,9 @@ const SignUp: React.FC = () => {
             <SignUpText>Cadastrar</SignUpText>
 
             <ButtonContainer>
-                <Button onPress={() => { navigation.navigate('SignUpUser', { itemId: false }) }}>Usuário</Button>
+                <Button onPress={() => { navigation.navigate('SignUpUser', { itemId: false }) }}>USUÁRIO</Button>
             </ButtonContainer>
-            <Button onPress={() => { navigation.navigate('SignUpUser', { itemId: true }) }}>Estabelecimento</Button>
+            <Button onPress={() => { navigation.navigate('SignUpUser', { itemId: true }) }}>ESTABELECIMENTO</Button>
         </Container>
     );
 }
