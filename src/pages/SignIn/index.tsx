@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -6,6 +6,7 @@ import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
+    TextInput,
 } from 'react-native';
 import {
     ButtonContainer,
@@ -28,6 +29,9 @@ import MapImg from '../../assets/map.png';
 
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
+    // referência para o input de password para que possamos manipula-lo no input de email
+    // com o botão next para focaliza-lo
+    const passwordInputRef = useRef<TextInput>(null);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -55,11 +59,24 @@ const SignIn: React.FC = () => {
                                 name="user"
                                 icon="user"
                                 placeholder="CPF/CNPJ"
+                                autoCapitalize="none"
+                                keyboardType="numeric"
+                                autoCorrect={false}
+                                returnKeyType="next"
+                                onSubmitEditing={() => {
+                                    passwordInputRef.current?.focus();
+                                }}
                             />
                             <Input
+                                ref={passwordInputRef}
                                 name="password"
                                 icon="lock"
                                 placeholder="Senha"
+                                secureTextEntry
+                                returnKeyType="send"
+                                onSubmitEditing={() => {
+                                    formRef.current?.submitForm();
+                                }}
                             />
                         </InputContainer>
 
