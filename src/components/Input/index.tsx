@@ -12,7 +12,9 @@ interface InputProps extends TextInputProps {
 
 const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
     const inputValueRef = useRef<InputValueReference>({ value: '' });
+    // responsável por atualizar o valor do input de acordo com o que o usuário digita.
 
+    // responsável pelas estilizações dos inputs se está focado ou preenchido para colori-lo.
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
 
@@ -20,6 +22,7 @@ const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
         setIsFocused(true);
     }, []);
 
+    // responsável por verificar se o input foi ou não preenchido para trocar a cor do ícone.
     const handleInputBlur = useCallback(() => {
         setIsFocused(false);
 
