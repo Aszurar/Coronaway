@@ -59,6 +59,7 @@ export const InputContainer = styled.View`
 
 export const ButtonContainer = styled.View`
     width: 60%;
+    margin: 0 auto;
 `;
 
 export const CreateAccountButton = styled.TouchableOpacity`
