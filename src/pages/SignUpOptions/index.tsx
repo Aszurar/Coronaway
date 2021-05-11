@@ -6,15 +6,19 @@ import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
+    View,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/Feather';
+
 import {
     ButtonContainer,
+    ButtonSpace,
     Container,
     CreateAccountButton,
     CreateAccountButtonText,
-    InputContainer,
-    ForgotPassword,
-    ForgotPasswordText,
+    GoBackToLogin,
+    GoBackToLoginText,
     LoginText,
     LoginContainer,
     Title,
@@ -23,10 +27,9 @@ import {
     Image,
 } from './styles';
 import Button from '../../components/Button';
-import Input from '../../components/Input';
 import MapImg from '../../assets/map.png';
 
-const SignIn: React.FC = () => {
+const SignUpOptions: React.FC = () => {
     const navigation = useNavigation();
 
     return (
@@ -47,21 +50,8 @@ const SignIn: React.FC = () => {
                         </TitleContainer>
                         {/* <Image source={MapImg} /> */}
                         <LoginContainer>
-                            <LoginText>Login</LoginText>
+                            <LoginText>Cadastrar</LoginText>
                         </LoginContainer>
-
-                        <InputContainer>
-                            <Input
-                                name="user"
-                                icon="user"
-                                placeholder="CPF/CNPJ"
-                            />
-                            <Input
-                                name="password"
-                                icon="lock"
-                                placeholder="Senha"
-                            />
-                        </InputContainer>
 
                         <ButtonContainer>
                             <Button
@@ -69,27 +59,28 @@ const SignIn: React.FC = () => {
                                     console.log('sorvetão');
                                 }}
                             >
-                                ENTRAR
+                                Usuário
+                            </Button>
+                            <ButtonSpace />
+                            <Button
+                                onPress={() => {
+                                    console.log('sorvetão');
+                                }}
+                            >
+                                Estabelecimento
                             </Button>
                         </ButtonContainer>
-
-                        <CreateAccountButton
-                            onPress={() => navigation.navigate('SignUpOptions')}
-                        >
-                            <CreateAccountButtonText>
-                                Cadastrar-se
-                            </CreateAccountButtonText>
-                        </CreateAccountButton>
                     </Container>
-                    <ForgotPassword>
-                        <ForgotPasswordText>
-                            Esqueceu a senha?
-                        </ForgotPasswordText>
-                    </ForgotPassword>
+                    <GoBackToLogin onPress={() => navigation.goBack()}>
+                        <Icon name="arrow-left" size={20} color="#06bd58" />
+                        <GoBackToLoginText>
+                            Voltar para o login
+                        </GoBackToLoginText>
+                    </GoBackToLogin>
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
 
-export default SignIn;
+export default SignUpOptions;

@@ -3,16 +3,23 @@ import styled from 'styled-components/native';
 
 import { Dimensions } from 'react-native';
 
-export const Container = styled.View`
+interface ContainerProps {
+    isFocused: boolean;
+}
+export const Container = styled.View<ContainerProps>`
     width: 100%;
     height: 48px;
     background-color: #f8f8f8;
     padding: 0 18px;
+    border-width: 2px;
+    border-color: #f8f8f8;
     border-radius: ${Dimensions.get('window').width * 0.5};
     margin-bottom: 10px;
 
     flex-direction: row;
     align-items: center;
+
+    ${props => props.isFocused && `border-color: #06bd58;`}
 `;
 
 export const TextInput = styled.TextInput`
