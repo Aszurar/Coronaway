@@ -5,33 +5,39 @@ import {
     CreateAccountButtonText,
     ForgotPassword,
     ForgotPasswordText,
-    LoginText,
+    SignUpText,
     Title,
     TitleSpan,
     TitleContainer,
+    ButtonContainer,
+    ImageBg,
 } from './styles';
 
+import BackgroundMap from '../../assets/images/map.png'
 import Button from '../../components/Button';
 
-const SignIn: React.FC = () => (
-    <Container>
-        <TitleContainer>
-            <Title>Coron</Title>
-            <TitleSpan>Away</TitleSpan>
-        </TitleContainer>
+import {useNavigation} from '@react-navigation/native'; 
 
-        <LoginText>Login</LoginText>
+const SignUp: React.FC = () => {
+    const navigation = useNavigation();
 
-        <Button>ENTRAR</Button>
+    return(
+        <ImageBg  source={BackgroundMap}>
+            <Container>
+                <TitleContainer>
+                    <Title>Coron</Title>
+                    <TitleSpan>Away</TitleSpan>
+                </TitleContainer>
 
-        <CreateAccountButton>
-            <CreateAccountButtonText>Cadastrar-se</CreateAccountButtonText>
-        </CreateAccountButton>
+                <SignUpText>Cadastrar</SignUpText>
 
-        <ForgotPassword>
-            <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
-        </ForgotPassword>
-    </Container>
-);
+                <ButtonContainer>
+                    <Button>Usuário</Button>
+                </ButtonContainer>
+                <Button>Estabelecimento</Button>
+            </Container>
+        </ImageBg>
+    );
+}
 
-export default SignIn;
+export default SignUp;

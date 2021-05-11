@@ -15,8 +15,6 @@ import {
     ButtonContainer,
     ButtonSpace,
     Container,
-    CreateAccountButton,
-    CreateAccountButtonText,
     GoBackToLogin,
     GoBackToLoginText,
     LoginText,
