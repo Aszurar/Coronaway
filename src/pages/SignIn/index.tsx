@@ -20,11 +20,7 @@ import {
     Title,
     TitleSpan,
     TitleContainer,
-<<<<<<< HEAD
     Image,
-=======
-    ImageBg,
->>>>>>> 21a226afe7b4210a2310a67de320fb28e1f9e493
 } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
