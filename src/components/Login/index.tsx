@@ -12,12 +12,12 @@ import {
 
 import Button from '../Button';
 import Input from '../Input';
-
 interface LoginProps {
 	setScreen: (value: string) => void;
+	setLastScreen: (value: string) => void;
 }
 
-export const Login = ({ setScreen }: LoginProps): JSX.Element => {
+export const Login = ({ setScreen, setLastScreen }: LoginProps): JSX.Element => {
 	return (
 		<Container>
 			<LoginText>Login</LoginText>
@@ -32,14 +32,17 @@ export const Login = ({ setScreen }: LoginProps): JSX.Element => {
 			</ButtonContainer>
 
 			<CreateAccountButton>
-				<CreateAccountButtonText onPress={() => setScreen('SignUp')}
+				<CreateAccountButtonText onPress={() => {
+					setScreen('SignUp');
+					setLastScreen('Login');
+				}}
 				>Cadastrar-se
 					</CreateAccountButtonText>
 			</CreateAccountButton>
 
-			<ForgotPassword>
+			<ForgotPassword onPress={() => setScreen('ForgotPassword')}>
 				<ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
 			</ForgotPassword>
-		</Container>
+		</Container >
 	)
 }
