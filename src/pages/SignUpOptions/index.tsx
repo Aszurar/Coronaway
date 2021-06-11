@@ -6,32 +6,26 @@ import {
     KeyboardAvoidingView,
     Platform,
     ScrollView,
-    View,
 } from 'react-native';
-
-import Icon from 'react-native-vector-icons/Feather';
-
 import {
     ButtonContainer,
     ButtonSpace,
     Container,
-    GoBackToLogin,
-    GoBackToLoginText,
     LoginText,
     LoginContainer,
-    Title,
-    TitleSpan,
-    TitleContainer,
-    Image,
 } from './styles';
 import Button from '../../components/Button';
-import MapImg from '../../assets/map.png';
+import Title from '../../components/Title';
+import ImageBackGround from '../../components/ImageBackGround';
+import BackButton from '../../components/BackButton';
 
 const SignUpOptions: React.FC = () => {
     const navigation = useNavigation();
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <ImageBackGround />
+
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -41,12 +35,10 @@ const SignUpOptions: React.FC = () => {
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={{ flex: 1 }}
                 >
+                    <BackButton />
                     <Container>
-                        <TitleContainer>
-                            <Title>Coron</Title>
-                            <TitleSpan>Away</TitleSpan>
-                        </TitleContainer>
-                        {/* <Image source={MapImg} /> */}
+                        <Title />
+
                         <LoginContainer>
                             <LoginText>Cadastrar</LoginText>
                         </LoginContainer>
@@ -54,7 +46,7 @@ const SignUpOptions: React.FC = () => {
                         <ButtonContainer>
                             <Button
                                 onPress={() => {
-                                    console.log('sorvetão');
+                                    navigation.navigate('SignUpUser');
                                 }}
                             >
                                 Usuário
@@ -62,19 +54,13 @@ const SignUpOptions: React.FC = () => {
                             <ButtonSpace />
                             <Button
                                 onPress={() => {
-                                    console.log('sorvetão');
+                                    navigation.navigate('SignUpStablishment');
                                 }}
                             >
                                 Estabelecimento
                             </Button>
                         </ButtonContainer>
                     </Container>
-                    <GoBackToLogin onPress={() => navigation.goBack()}>
-                        <Icon name="arrow-left" size={20} color="#06bd58" />
-                        <GoBackToLoginText>
-                            Voltar para o login
-                        </GoBackToLoginText>
-                    </GoBackToLogin>
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>

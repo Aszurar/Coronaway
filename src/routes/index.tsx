@@ -5,6 +5,8 @@ import SignIn from '../pages/SignIn';
 import SignUpOptions from '../pages/SignUpOptions';
 
 import SignUp from '../pages/SignUp';
+import SignUpUser from '../pages/SignUpUser';
+import SignUpStablishment from '../pages/SignUpStablishment';
 
 const Auth = createStackNavigator();
 
@@ -19,6 +21,8 @@ const AuthRoutes: React.FC = () => (
         <Auth.Screen name="SignIn" component={SignIn} />
         <Auth.Screen name="SignUpOptions" component={SignUpOptions} />
         <Auth.Screen name="SignUp" component={SignUp} />
+        <Auth.Screen name="SignUpUser" component={SignUpUser} />
+        <Auth.Screen name="SignUpStablishment" component={SignUpStablishment} />
     </Auth.Navigator>
 );
 
