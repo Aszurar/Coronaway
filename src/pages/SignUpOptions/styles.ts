@@ -14,7 +14,7 @@ export const LoginText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
     font-size: 24px;
-    margin-top: ${Dimensions.get('window').height * 0.16};
+    margin-top: ${Dimensions.get('window').height * 0.16}px;
     margin-bottom: 16px;
 `;
 

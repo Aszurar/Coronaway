@@ -135,6 +135,7 @@ const SignIn: React.FC = () => {
                                 <Button
                                     onPress={() => {
                                         formRef.current?.submitForm();
+                                        navigation.navigate('Map')
                                     }}
                                 >
                                     ENTRAR

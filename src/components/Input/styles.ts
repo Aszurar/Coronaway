@@ -14,7 +14,7 @@ export const Container = styled.View<ContainerProps>`
     padding: 0 18px;
     border-width: 2px;
     border-color: #f8f8f8;
-    border-radius: ${Dimensions.get('window').width * 0.5};
+    border-radius: ${Dimensions.get('window').width * 0.5}px;
     margin-bottom: 10px;
 
     flex-direction: row;
