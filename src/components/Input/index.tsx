@@ -1,12 +1,14 @@
 import React, {
-    useState,
     useCallback,
-    useRef,
-    useImperativeHandle,
     forwardRef,
+    useEffect,
+    useImperativeHandle,
+    useRef,
+    useState,
 } from 'react';
 import { TextInputProps } from 'react-native';
-import { Container, TextInput, Icon } from './styles';
+import { useField } from '@unform/core';
+import { Container, Icon, TextInput } from './styles';
 
 interface InputValueReference {
     value: string;
@@ -27,9 +29,6 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     { name, icon, ...rest },
     ref,
 ) => {
-    // responsável por atualizar o valor do input de acordo com o que o usuário digita.
-    const inputValueRef = useRef<InputValueReference>({ value: '' });
-
     // responsável por referenciar o nosso TextInput que seria o Input em si
     // para podermos manipula-lo diretamente
     const inputElementRef = useRef<any>(null);
@@ -37,6 +36,31 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     // responsável pelas estilizações dos inputs se está focado ou preenchido para colori-lo.
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
+
+    // métodos responsáveis por criar o campo do Input no formulário com seus dados
+    const { registerField, defaultValue = '', fieldName, error } = useField(
+        name,
+    );
+    // responsável por atualizar o valor do input de acordo com o que o usuário digita.
+    const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
+
+    // criação do campo do Input com seu nome, seu valor e os métodos necessários para
+    // o uso do unform.
+    useEffect(() => {
+        registerField<string>({
+            name: fieldName,
+            ref: inputValueRef.current,
+            path: 'value',
+            setValue(ref: any, value) {
+                inputValueRef.current.value = value;
+                inputElementRef.current.setNativeProps({ text: value });
+            },
+            clearValue() {
+                inputValueRef.current.value = '';
+                inputElementRef.current.clear();
+            },
+        });
+    }, [fieldName, registerField]);
 
     const handleInputFocus = useCallback(() => {
         setIsFocused(true);
@@ -63,7 +87,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
     }));
 
     return (
-        <Container isFocused={isFocused}>
+        <Container isFocused={isFocused} isErrored={!!error}>
             <Icon
                 name={icon}
                 size={20}

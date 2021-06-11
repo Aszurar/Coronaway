@@ -1,55 +1,42 @@
 import React, { useRef, useCallback } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup'; // responsável pela validação
 import {
     Alert,
-    SafeAreaView,
     KeyboardAvoidingView,
-    Platform,
     ScrollView,
+    Platform,
     TextInput,
 } from 'react-native';
-
-import getValidationErrors from '../../utils/getValidationErrors';
-
 import {
     ButtonContainer,
     Container,
-    CreateAccountButton,
-    CreateAccountButtonText,
     InputContainer,
-    ForgotPassword,
-    ForgotPasswordText,
-    LoginText,
-    LoginContainer,
+    InputsContainer,
+    SignUpUserText,
+    SignUpUserContainer,
 } from './styles';
+import getValidationErrors from '../../utils/getValidationErrors';
+
 import Button from '../../components/Button';
+import Title from '../../components/Title';
 import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
-import Title from '../../components/Title';
+import BackButton from '../../components/BackButton';
 
-const SignIn: React.FC = () => {
-    const navigation = useNavigation();
-    // referência para o input de password para que possamos manipula-lo no input de email
-    // com o botão next para focaliza-lo
+export const SignUpUser: React.FC = () => {
     const passwordInputRef = useRef<TextInput>(null);
-    // referência para o formulário com a tipagem FormHandles que traz todos os métodos
-    // necessários para se manipular formulários.
-    // Vamos referência o formulário pois queremos criar um botão que submeta o formulário
-    // e esse botão por padrão não existe no react-native. Com isso, vamos criá-lo.
     const formRef = useRef<FormHandles>(null);
 
     interface SignInFormData {
         user: string;
         password: string;
     }
-    // método responsável por submeter o formulário para o back-end
+
     const handleSignIn = useCallback(async (data: SignInFormData) => {
         try {
             console.log(data);
-
             //     formRef.current?.setErrors({});
             //     const schema = Yup.object().shape({
             //         email: Yup.string()
@@ -68,7 +55,6 @@ const SignIn: React.FC = () => {
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err);
-
                 formRef.current?.setErrors(errors);
 
                 return;
@@ -82,7 +68,7 @@ const SignIn: React.FC = () => {
     }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <Container>
             <ImageBackGround />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
@@ -93,12 +79,13 @@ const SignIn: React.FC = () => {
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={{ flex: 1 }}
                 >
-                    <Container>
+                    <BackButton />
+                    <InputsContainer>
                         <Title />
 
-                        <LoginContainer>
-                            <LoginText>Login</LoginText>
-                        </LoginContainer>
+                        <SignUpUserContainer>
+                            <SignUpUserText>Cadastro de Usuário</SignUpUserText>
+                        </SignUpUserContainer>
 
                         <Form
                             ref={formRef}
@@ -107,10 +94,22 @@ const SignIn: React.FC = () => {
                         >
                             <InputContainer>
                                 <Input
+                                    name="userName"
+                                    icon="user"
+                                    placeholder="Nome Completo"
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    returnKeyType="next"
+                                    onSubmitEditing={() => {
+                                        passwordInputRef.current?.focus();
+                                    }}
+                                />
+
+                                <Input
                                     name="user"
                                     icon="user"
-                                    placeholder="CPF/CNPJ"
-                                    autoCapitalize="none"
+                                    placeholder="CPF"
+                                    autoCapitalize="words"
                                     keyboardType="numeric"
                                     autoCorrect={false}
                                     returnKeyType="next"
@@ -118,6 +117,7 @@ const SignIn: React.FC = () => {
                                         passwordInputRef.current?.focus();
                                     }}
                                 />
+
                                 <Input
                                     ref={passwordInputRef}
                                     name="password"
@@ -129,37 +129,59 @@ const SignIn: React.FC = () => {
                                         formRef.current?.submitForm();
                                     }}
                                 />
-                            </InputContainer>
 
-                            <ButtonContainer>
-                                <Button
-                                    onPress={() => {
+                                <Input
+                                    name="userEmail"
+                                    icon="mail"
+                                    placeholder="E-mail"
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    returnKeyType="next"
+                                    onSubmitEditing={() => {
+                                        passwordInputRef.current?.focus();
+                                    }}
+                                />
+
+                                <Input
+                                    ref={passwordInputRef}
+                                    name="password"
+                                    icon="lock"
+                                    placeholder="Senha"
+                                    secureTextEntry
+                                    returnKeyType="send"
+                                    onSubmitEditing={() => {
                                         formRef.current?.submitForm();
                                     }}
-                                >
-                                    ENTRAR
-                                </Button>
-                            </ButtonContainer>
+                                />
+
+                                <Input
+                                    ref={passwordInputRef}
+                                    name="password"
+                                    icon="lock"
+                                    placeholder="Repetir Senha"
+                                    secureTextEntry
+                                    returnKeyType="send"
+                                    onSubmitEditing={() => {
+                                        formRef.current?.submitForm();
+                                    }}
+                                />
+                            </InputContainer>
                         </Form>
 
-                        <CreateAccountButton
-                            onPress={() => navigation.navigate('SignUpOptions')}
-                        >
-                            <CreateAccountButtonText>
-                                Cadastrar-se
-                            </CreateAccountButtonText>
-                        </CreateAccountButton>
-
-                        <ForgotPassword>
-                            <ForgotPasswordText>
-                                Esqueceu a senha?
-                            </ForgotPasswordText>
-                        </ForgotPassword>
-                    </Container>
+                        <ButtonContainer>
+                            <Button
+                                onPress={() => {
+                                    console.log('ola');
+                                }}
+                            >
+                                CADASTRAR
+                            </Button>
+                        </ButtonContainer>
+                    </InputsContainer>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </Container>
     );
 };
 
-export default SignIn;
+export default SignUpUser;

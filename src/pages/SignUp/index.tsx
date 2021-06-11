@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
     Container,
     CreateAccountButton,
@@ -10,34 +11,30 @@ import {
     TitleSpan,
     TitleContainer,
     ButtonContainer,
-    ImageBg,
 } from './styles';
 
-import BackgroundMap from '../../assets/images/map.png'
 import Button from '../../components/Button';
-
-import {useNavigation} from '@react-navigation/native'; 
+import ImageBackGround from '../../components/ImageBackGround';
 
 const SignUp: React.FC = () => {
     const navigation = useNavigation();
 
-    return(
-        <ImageBg  source={BackgroundMap}>
-            <Container>
-                <TitleContainer>
-                    <Title>Coron</Title>
-                    <TitleSpan>Away</TitleSpan>
-                </TitleContainer>
+    return (
+        <Container>
+            <ImageBackGround />
+            <TitleContainer>
+                <Title>Coron</Title>
+                <TitleSpan>Away</TitleSpan>
+            </TitleContainer>
 
-                <SignUpText>Cadastrar</SignUpText>
+            <SignUpText>Cadastrar</SignUpText>
 
-                <ButtonContainer>
-                    <Button>Usuário</Button>
-                </ButtonContainer>
-                <Button>Estabelecimento</Button>
-            </Container>
-        </ImageBg>
+            <ButtonContainer>
+                <Button>Usuário</Button>
+            </ButtonContainer>
+            <Button>Estabelecimento</Button>
+        </Container>
     );
-}
+};
 
 export default SignUp;

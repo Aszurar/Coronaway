@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 
 interface ContainerProps {
     isFocused: boolean;
+    isErrored: boolean;
 }
 export const Container = styled.View<ContainerProps>`
     width: 100%;
@@ -19,7 +20,16 @@ export const Container = styled.View<ContainerProps>`
     flex-direction: row;
     align-items: center;
 
-    ${props => props.isFocused && `border-color: #06bd58;`}
+    ${props =>
+        props.isFocused &&
+        `
+            border-color: #06bd58;
+        `}
+    ${props =>
+        props.isErrored &&
+        `
+            border-color: #c53030;
+        `}
 `;
 
 export const TextInput = styled.TextInput`
