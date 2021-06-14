@@ -8,6 +8,7 @@ import SignUp from '../pages/SignUp';
 import SignUpUser from '../pages/SignUpUser';
 import SignUpStablishment from '../pages/SignUpStablishment';
 import Map from '../pages/Map';
+import QrScan from '../pages/QrScan';
 
 const Auth = createStackNavigator();
 
@@ -25,6 +26,7 @@ const AuthRoutes: React.FC = () => (
         <Auth.Screen name="SignUpUser" component={SignUpUser} />
         <Auth.Screen name="SignUpStablishment" component={SignUpStablishment} />
         <Auth.Screen name="Map" component={Map} />
+        <Auth.Screen name="QrScan" component={QrScan} />
     </Auth.Navigator>
 );
 

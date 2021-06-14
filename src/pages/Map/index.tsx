@@ -1,34 +1,60 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import React, { useEffect, useState } from 'react'
+import { View, SafeAreaView, StyleSheet, Dimensions } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import GetLocation from 'react-native-get-location';
+import { useNavigation } from '@react-navigation/native';
+import QrButton from '../../components/QrButton';
 
+// import { MapContainer } from './styles';
 
-export const Map: React.FC = () => (
-    <View >
-        {/* <MapView
-            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-            // style={styles.map}
-            region={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121,
-            }}
-        >
-        </MapView> */}
-    </View>
-);
+export const Map: React.FC = () => {
+    const navigation = useNavigation()
+    const [latitude, setLatitude] = useState(Number);
+    const [longitude, setLongitude] = useState(Number);
+
+    useEffect(() => {
+        const getLocation = () => {
+            GetLocation.getCurrentPosition({
+                enableHighAccuracy: true,
+                timeout: 15000,
+            })
+                .then(location => {
+                    // console.warn(location);
+                    setLatitude(location.latitude);
+                    setLongitude(location.longitude);
+                })
+                .catch(error => {
+                    const { code, message } = error;
+                    console.warn(code, message);
+                });
+        };
+        getLocation();
+    }, []);
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <MapView
+                provider={PROVIDER_GOOGLE}
+                region={{
+                    latitude,
+                    longitude,
+                    latitudeDelta: 0.1,
+                    longitudeDelta: 0.1,
+                }}
+                style={styles.map}
+            />
+            <QrButton />
+
+        </SafeAreaView >
+
+    )
+}
 
 const styles = StyleSheet.create({
-    container: {
-        height: 400,
-        width: 400,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    // map: {
-    //     flex: 1,
-    // },
-});
+    map: {
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width
+    }
+})
 
 export default Map
