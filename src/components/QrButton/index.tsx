@@ -8,7 +8,7 @@ export const QrButton: React.FC = () => {
     const navigation = useNavigation()
 
     return (
-        <Container onPress={() => navigation.navigate('QrScan')}>
+        <Container onPress={() => navigation.navigate('QrOptions')}>
             <QrImage source={QrImg} />
         </Container>
     );

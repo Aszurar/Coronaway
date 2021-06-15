@@ -5,8 +5,6 @@ import GetLocation from 'react-native-get-location';
 import { useNavigation } from '@react-navigation/native';
 import QrButton from '../../components/QrButton';
 
-// import { MapContainer } from './styles';
-
 export const Map: React.FC = () => {
     const navigation = useNavigation()
     const [latitude, setLatitude] = useState(Number);
@@ -44,9 +42,7 @@ export const Map: React.FC = () => {
                 style={styles.map}
             />
             <QrButton />
-
         </SafeAreaView >
-
     )
 }
 
