@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { View, SafeAreaView, StyleSheet, Dimensions } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
+
 import { useNavigation } from '@react-navigation/native';
+
 import QrButton from '../../components/QrButton';
+import DropShadow from "react-native-drop-shadow";
+import { BurguerContainer } from './styles'
 
 export const Map: React.FC = () => {
     const navigation = useNavigation()
@@ -41,6 +47,21 @@ export const Map: React.FC = () => {
                 }}
                 style={styles.map}
             />
+            <BurguerContainer>
+                <DropShadow
+                    style={{
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0.9,
+                            height: 0.9,
+                        },
+                        shadowOpacity: 0.8,
+                        shadowRadius: 2,
+                    }}
+                >
+                    <FeatherIcon name='menu' color='white' size={30} />
+                </DropShadow>
+            </BurguerContainer>
             <QrButton />
         </SafeAreaView >
     )
