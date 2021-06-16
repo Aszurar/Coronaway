@@ -24,6 +24,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
 import Title from '../../components/Title';
+import BackButton from '../../components/BackButton';
 
 const ForgotPassword: React.FC = () => {
     const navigation = useNavigation();
@@ -34,6 +35,7 @@ const ForgotPassword: React.FC = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <BackButton />
             <ImageBackGround />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}

@@ -9,7 +9,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const InputsContainer = styled.View`
-    flex: 1
+    flex: 1;
     justify-content: center;
     align-items: center;
 
@@ -45,7 +45,7 @@ export const SignUpUserContainer = styled.View`
     justify-content: center;
     align-items: center;
 
-    margin-top: ${Dimensions.get('window').height * 0.35}px;
+    margin-top: ${Dimensions.get('window').height * 0.25}px;
 `;
 
 export const SignUpUserText = styled.Text`
@@ -65,12 +65,26 @@ export const SignUpEstablishmentText = styled.Text`
     text-align: center;
 `;
 
+export const AddressView = styled.View`
+    flex-direction: row;
+`
+
+export const AddressText = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-book';
+    color: #fff;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+`;
+
 export const InputContainer = styled.View`
     margin-bottom: 16px;
     width: 100%;
 `;
 
 export const ButtonContainer = styled.View`
+    margin-top: ${Dimensions.get('window').height * 0.05}px;
     width: ${Dimensions.get('window').width * 0.8}px;
 `;
 

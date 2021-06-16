@@ -4,6 +4,7 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup'; // responsável pela validação
 import {
     Alert,
+    View,
     KeyboardAvoidingView,
     ScrollView,
     Platform,
@@ -16,6 +17,8 @@ import {
     InputsContainer,
     SignUpUserText,
     SignUpUserContainer,
+    AddressText,
+    AddressView,
 } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -26,6 +29,8 @@ import Title from '../../components/Title';
 import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
 import BackButton from '../../components/BackButton';
+import SetLocation from '../../components/GetLocation';
+// import { map-pin } from "react-native-vector-icons/feather";
 
 export const SignUpStablishment: React.FC = () => {
     const passwordInputRef = useRef<TextInput>(null);
@@ -80,8 +85,8 @@ export const SignUpStablishment: React.FC = () => {
                 enabled
             >
                 <ScrollView
-                    keyboardShouldPersistTaps="handled"
-                    contentContainerStyle={{ flex: 1 }}
+                // keyboardShouldPersistTaps="handled"
+                // contentContainerStyle={{ flex: 1 }}
                 >
                     <BackButton />
                     <InputsContainer>
@@ -122,7 +127,7 @@ export const SignUpStablishment: React.FC = () => {
                                     }}
                                 />
 
-                                <Input
+                                {/* <Input
                                     name="address"
                                     icon="map-pin"
                                     placeholder="Endereço"
@@ -132,7 +137,12 @@ export const SignUpStablishment: React.FC = () => {
                                     onSubmitEditing={() => {
                                         passwordInputRef.current?.focus();
                                     }}
-                                />
+                                /> */}
+                                <AddressView>
+                                    <AddressText>Endereço</AddressText>
+                                </AddressView>
+                                <SetLocation />
+
                                 <Input
                                     name="user"
                                     icon="user-plus"
