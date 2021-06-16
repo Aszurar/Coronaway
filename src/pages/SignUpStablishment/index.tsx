@@ -30,7 +30,7 @@ import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
 import BackButton from '../../components/BackButton';
 import SetLocation from '../../components/GetLocation';
-// import { map-pin } from "react-native-vector-icons/feather";
+import FeatherIcon from "react-native-vector-icons/Feather";
 
 export const SignUpStablishment: React.FC = () => {
     const passwordInputRef = useRef<TextInput>(null);
@@ -139,7 +139,8 @@ export const SignUpStablishment: React.FC = () => {
                                     }}
                                 /> */}
                                 <AddressView>
-                                    <AddressText>Endereço</AddressText>
+                                    <FeatherIcon name='map-pin' color='white' size={20} />
+                                    <AddressText> Endereço</AddressText>
                                 </AddressView>
                                 <SetLocation />
 

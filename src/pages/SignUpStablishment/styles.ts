@@ -67,15 +67,16 @@ export const SignUpEstablishmentText = styled.Text`
 
 export const AddressView = styled.View`
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 5px;
 `
 
 export const AddressText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-book';
     color: #fff;
     font-size: 20px;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 8px;
 `;
 
 export const InputContainer = styled.View`

@@ -35,13 +35,13 @@ const ForgotPassword: React.FC = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <BackButton />
             <ImageBackGround />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 enabled
             >
+                <BackButton />
                 <Container>
                     <Title />
 
