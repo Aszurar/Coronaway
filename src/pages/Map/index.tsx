@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, SafeAreaView, StyleSheet, Dimensions } from 'react-native';
+import { View, SafeAreaView, StyleSheet, Dimensions, Image, Text } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather'
 
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
 
 import { useNavigation } from '@react-navigation/native';
@@ -11,8 +11,17 @@ import QrButton from '../../components/QrButton';
 import DropShadow from "react-native-drop-shadow";
 import { BurguerContainer } from './styles'
 
-export const Map: React.FC = () => {
+import SideBar from '../../components/SideBar';
+import SignUp from '../../pages/SignUp';
+import SignUpOptions from '../../pages/SignUpOptions';
+
+//Marker
+import { stablishments } from '../../users';
+import marker_pin from '../../assets/pin.png';
+
+export const Map: React.FC = ({ navigation_drawer }: any) => {
     const navigation = useNavigation()
+
     const [latitude, setLatitude] = useState(Number);
     const [longitude, setLongitude] = useState(Number);
 
@@ -46,8 +55,23 @@ export const Map: React.FC = () => {
                     longitudeDelta: 0.1,
                 }}
                 style={styles.map}
-            />
-            <BurguerContainer>
+            >
+                {stablishments.map(stablishment => (
+                    <Marker
+                        title={stablishment.nome}
+                        description={stablishment.lotacao}
+                        style={styles.mapMarker}
+                        key={stablishment.cnpj}
+                        onCalloutPress={() => navigation.navigate('Details', { stablishment })}
+                        coordinate={{
+                            latitude: stablishment.latitude,
+                            longitude: stablishment.longitude,
+                        }}
+                        image={marker_pin}
+                    />
+                ))}
+            </MapView>
+            <BurguerContainer onPress={() => { }}>
                 <DropShadow
                     style={{
                         shadowColor: "#000",
@@ -71,7 +95,7 @@ const styles = StyleSheet.create({
     map: {
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width
-    }
+    },
 })
 
 export default Map

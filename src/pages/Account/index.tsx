@@ -1,9 +1,11 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
-export const Account: React.FC = () => {
+export const Account: React.FC = ({ navigation }: any) => {
     return (
-        <View />
+        <View>
+            <Text>Account Screen</Text>
+        </View>
     )
 }
 
