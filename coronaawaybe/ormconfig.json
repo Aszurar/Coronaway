@@ -2,7 +2,16 @@
     "type": "postgres",
     "host": "localhost",
     "port": 5433,
-    "username": "coronaawaytentativa2",
-    "passowrd": "1234",
-    "database": "coronaaway"
-}
+    "username": "postgres",
+    "password": "corona",
+    "database": "postgres",
+    "entities": [
+          "./src/models/*.ts"
+      ],
+    "migrations": [
+      "./src/database/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/database/migrations"
+    }
+  }
