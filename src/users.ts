@@ -10,7 +10,7 @@ interface IStablishment {
 
 export const stablishments = [
 	{
-		nome: "Casa da minha caceta dentro do ganso",
+		nome: "Minha Casa",
 		cnpj: "12345678912345",
 		latitude: -7.15343535499655,
 		longitude: -34.80954028666019,

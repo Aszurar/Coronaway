@@ -1,12 +1,25 @@
 import React from 'react';
-import { View, Text } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native';
+import { Container, QrText, QrImage, QrContainer } from './styles';
+import qrcode from '../../assets/qrcode.png'
 
-const QrCodeView = () => {
+import BackButton from '../../components/BackButton';
+
+const QrCodeView: React.FC = () => {
+    const navigation = useNavigation();
+
     return (
-        <View style={{ flex: 1 }}>
-            <Text>Tela do QR Code aqui</Text>
-        </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <BackButton />
+            <Container>
+                <QrText>Escanear QR Code</QrText>
+                <QrContainer>
+                    <QrImage source={qrcode} />
+                </QrContainer>
+            </Container>
+        </SafeAreaView>
     );
-}
+};
 
-export default QrCodeView
+export default QrCodeView;

@@ -13,8 +13,7 @@ import QrScan from '../pages/QrScan';
 import CheckInConfirmation from '../pages/CheckInConfirmation';
 import QrOptions from '../pages/QrOptions';
 import QrCodeView from '../pages/QrCodeView';
-import Details from '../pages/Details';
-import SideBar from '../components/SideBar';
+import Account from '../pages/Account';
 
 const Auth = createStackNavigator();
 
@@ -36,8 +35,7 @@ const AuthRoutes: React.FC = () => (
         <Auth.Screen name="QrScan" component={QrScan} />
         <Auth.Screen name="QrOptions" component={QrOptions} />
         <Auth.Screen name="CheckInConfirmation" component={CheckInConfirmation} />
-        <Auth.Screen name="SideBar" component={SideBar} />
-        <Auth.Screen name="Details" component={Details} />
+        <Auth.Screen name="Account" component={Account} />
         <Auth.Screen name="QrCodeView" component={QrCodeView} />
     </Auth.Navigator>
 );
