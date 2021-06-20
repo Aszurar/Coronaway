@@ -14,7 +14,8 @@ class CreateUserService {
         name,
         email,
         password
-    }: Request): Promise<User>{
+    }: Request
+    ): Promise<User>{
 
         const usersRepository = getRepository(User);
         const checkUserExistsByEmail = await usersRepository.findOne({
