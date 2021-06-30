@@ -1,10 +1,22 @@
 import { Router } from 'express';
+import { getRepository } from 'typeorm';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import Establishment from '../models/Establishments';
 import CreateEstablishmentService from '../services/CreateEstablishmentService';
 
 const establishmentRouter = Router();
 
+establishmentRouter.get('/', ensureAuthenticated, async (req, res) => {
+    console.log(req.user);
+
+    const establishmentRepository = getRepository(Establishment);
+
+    const establishments = await establishmentRepository.find();
+
+    return res.json(establishments);
+})
+
 establishmentRouter.post('/', async (req, res) => {
-    try {
         const {
             name,
             cnpj,
@@ -36,9 +48,6 @@ establishmentRouter.post('/', async (req, res) => {
         }
 
         return res.json(establishmentWithoutPassword);
-    } catch (err) {
-        return res.status(400).json({ error: err.message})
-    }
 })
 
 export default establishmentRouter;

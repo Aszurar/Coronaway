@@ -1,5 +1,6 @@
 import { hash } from 'bcryptjs';
 import { getRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 import Establishment from '../models/Establishments';
 
 interface Request {
@@ -24,45 +25,41 @@ class CreateEstablishmentService{
     ): Promise<Establishment>{
 
         const establishmentRepository = getRepository(Establishment);
-        const checkEstablishmentExistsByCnpj =
-        await establishmentRepository.findOne({
-            where: { cnpj },
-        });
-        const checkEstablishmentExistsByEmail =
-        await establishmentRepository.findOne({
-            where: { email },
-        });
+
         const checkEstablishmentExistsByLatitude =
         await establishmentRepository.findOne({
             where: { latitude },
         });
+
         const checkEstablishmentExistsByLongitude =
         await establishmentRepository.findOne({
             where: { longitude },
         });
 
-        const checkEstablishmentExists =
-        checkEstablishmentExistsByCnpj || checkEstablishmentExistsByEmail ||
-        (checkEstablishmentExistsByLatitude && checkEstablishmentExistsByLongitude)
+        const checkEstablishmentExists = (checkEstablishmentExistsByLatitude && checkEstablishmentExistsByLongitude)
 
         if (checkEstablishmentExists) {
-            throw new Error('establishment already exist')
+            throw new AppError('establishment already exist');
         }
 
         const hashedPassword = await hash(password, 8);
 
-        const establishment = establishmentRepository.create({
-            name,
-            cnpj,
-            email,
-            password: hashedPassword,
-            latitude,
-            longitude,
-        })
+        try {
+            const establishment = establishmentRepository.create({
+                name,
+                cnpj,
+                email,
+                password: hashedPassword,
+                latitude,
+                longitude,
+            })
 
-        establishmentRepository.save(establishment);
+            await establishmentRepository.save(establishment);
 
-        return establishment;
+            return establishment;
+        } catch (error) {
+            throw new AppError("establishment already exist");
+        }
     }
 }
 
