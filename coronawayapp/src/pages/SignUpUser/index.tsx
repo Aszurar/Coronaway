@@ -18,6 +18,7 @@ import {
     SignUpUserContainer,
 } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useNavigation } from '@react-navigation/native';
 
 import Button from '../../components/Button';
 import Title from '../../components/Title';
@@ -28,6 +29,8 @@ import BackButton from '../../components/BackButton';
 export const SignUpUser: React.FC = () => {
     const passwordInputRef = useRef<TextInput>(null);
     const formRef = useRef<FormHandles>(null);
+
+    const navigation = useNavigation()
 
     interface SignInFormData {
         user: string;
@@ -118,17 +121,6 @@ export const SignUpUser: React.FC = () => {
                                     }}
                                 />
 
-                                <Input
-                                    ref={passwordInputRef}
-                                    name="password"
-                                    icon="lock"
-                                    placeholder="Senha"
-                                    secureTextEntry
-                                    returnKeyType="send"
-                                    onSubmitEditing={() => {
-                                        formRef.current?.submitForm();
-                                    }}
-                                />
 
                                 <Input
                                     name="userEmail"
@@ -141,6 +133,7 @@ export const SignUpUser: React.FC = () => {
                                         passwordInputRef.current?.focus();
                                     }}
                                 />
+
 
                                 <Input
                                     ref={passwordInputRef}
@@ -171,7 +164,18 @@ export const SignUpUser: React.FC = () => {
                         <ButtonContainer>
                             <Button
                                 onPress={() => {
-                                    console.log('ola');
+                                    Alert.alert(
+                                        "Cadastro Realizado!",
+                                        "Cadastro de usuário realizado com sucesso!",
+                                        [
+                                            {
+                                                text: "Cancel",
+                                                onPress: () => console.log("Cancel Pressed"),
+                                                style: "cancel"
+                                            },
+                                            { text: "OK", onPress: () => navigation.navigate('SignIn') }
+                                        ]
+                                    );
                                 }}
                             >
                                 CADASTRAR

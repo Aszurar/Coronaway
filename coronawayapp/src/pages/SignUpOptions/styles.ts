@@ -10,15 +10,15 @@ export const Container = styled.View`
     padding: 0 40px ${Platform.OS === 'android' ? '150' : '40'}px;
 `;
 
-export const LoginText = styled.Text`
+export const SignUpText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
     font-size: 24px;
-    margin-top: ${Dimensions.get('window').height * 0.16};
+    margin-top: ${Dimensions.get('window').height * 0.16}px;
     margin-bottom: 16px;
 `;
 
-export const LoginContainer = styled.View`
+export const SignUpContainer = styled.View`
     margin-top: ${Dimensions.get('window').height * 0.1}px;
 `;
 
@@ -27,15 +27,4 @@ export const ButtonSpace = styled.View`
 `;
 export const ButtonContainer = styled.View`
     width: 100%;
-`;
-
-export const CreateAccountButton = styled.TouchableOpacity`
-    margin: 20px 0 32px;
-`;
-export const CreateAccountButtonText = styled.Text`
-    font-family: 'itc-avant-garde-gothic-std-book';
-    color: #fff;
-    font-size: 20px;
-    text-align: center;
-    text-decoration: underline;
 `;

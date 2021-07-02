@@ -135,6 +135,7 @@ const SignIn: React.FC = () => {
                                 <Button
                                     onPress={() => {
                                         formRef.current?.submitForm();
+                                        navigation.navigate('Map')
                                     }}
                                 >
                                     ENTRAR
@@ -150,7 +151,9 @@ const SignIn: React.FC = () => {
                             </CreateAccountButtonText>
                         </CreateAccountButton>
 
-                        <ForgotPassword>
+                        <ForgotPassword
+                            onPress={() => navigation.navigate('ForgotPassword')}
+                        >
                             <ForgotPasswordText>
                                 Esqueceu a senha?
                             </ForgotPasswordText>
