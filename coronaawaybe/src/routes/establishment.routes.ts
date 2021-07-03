@@ -8,6 +8,8 @@ interface filteredStablishmentsInterface {
     name: string;
     latitude: string;
     longitude: string;
+    capacity: number;
+    current_stocking: number;
 }
 
 const establishmentRouter = Router();
@@ -22,8 +24,8 @@ establishmentRouter.get('/', ensureAuthenticated, async (req, res) => {
     const filteredStablishments: filteredStablishmentsInterface[] = []
 
     establishments.forEach((establishment) => {
-        let { latitude, longitude, name } = establishment
-        filteredStablishments.push({ name, latitude, longitude })
+        let { latitude, longitude, name, capacity, current_stocking } = establishment
+        filteredStablishments.push({ name, latitude, longitude, capacity, current_stocking });
     })
 
     return res.json(filteredStablishments);
