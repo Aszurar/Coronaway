@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
     const handleSignIn = useCallback(async (data: SignInFormData) => {
 
         try {
-            console.log('Tamanho do input de cpf/cnpj:',data.user.length);
+            console.log('Tamanho do input de cpf/cnpj o carai:',data.user.length);
 
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
