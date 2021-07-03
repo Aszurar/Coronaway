@@ -29,6 +29,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
 import Title from '../../components/Title';
+import api from '../../services/api';
 
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
@@ -47,24 +48,47 @@ const SignIn: React.FC = () => {
     }
     // método responsável por submeter o formulário para o back-end
     const handleSignIn = useCallback(async (data: SignInFormData) => {
-        try {
-            console.log(data);
 
-            //     formRef.current?.setErrors({});
-            //     const schema = Yup.object().shape({
-            //         email: Yup.string()
-            //             .email('Digite um e-mail válido')
-            //             .required('E-mail obrigatório'),
-            //         password: Yup.string().required('Senha obrigatória'),
-            //     });
-            //     await schema.validate(data, {
-            //         abortEarly: false,
-            //     });
+        try {
+            // console.log(data);
+
+            formRef.current?.setErrors({});
+            const schema = Yup.object().shape({
+                user: Yup.string()
+                    .required('Dados obrigatórios')
+                    .min(11, 'Necessário no minimo 11 dígitos').max(12, 'Necessário no máximo 12 dígitos'),
+                password: Yup.string().required('Senha obrigatória'),
+            });
+            await schema.validate(data, {
+                abortEarly: false,
+            });
+
             // await signIn({
             //     email: data.email,
             //     password: data.password,
             // });
-            // history.push('/dashboard');
+
+            {
+                const { user, password } = data
+                const cpf_user = {
+                    cpf: user,
+                    password
+                }
+                const cnpj_user = {
+                    cnpj: user,
+                    password
+                }
+
+                if (user.length === 11) {
+                    console.log('piroquinha: ', cpf_user)
+                    await api.post('./sessions', cpf_user)
+                    navigation.navigate('Map')
+                } else if (user.length === 12) {
+                    console.log("cnpj")
+                }
+            }
+
+
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err);
@@ -135,7 +159,6 @@ const SignIn: React.FC = () => {
                                 <Button
                                     onPress={() => {
                                         formRef.current?.submitForm();
-                                        navigation.navigate('Map')
                                     }}
                                 >
                                     ENTRAR

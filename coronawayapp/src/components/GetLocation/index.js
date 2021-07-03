@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import MapPicker from "react-native-map-picker";
 import GetLocation from 'react-native-get-location';
 
-const SetLocation = () => {
+const SetLocation = ({ getLocation }) => {
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
 
@@ -28,7 +28,7 @@ const SetLocation = () => {
                         latitude,
                         longitude,
                     }}
-                    onLocationSelect={({ latitude, longitude }) => console.log('Posição escolhida: ', latitude, longitude)}
+                    onLocationSelect={({ latitude, longitude }) => getLocation(latitude, longitude)}
 
                 />
             }

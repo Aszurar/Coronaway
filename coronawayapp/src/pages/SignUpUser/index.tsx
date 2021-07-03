@@ -25,59 +25,87 @@ import Title from '../../components/Title';
 import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
 import BackButton from '../../components/BackButton';
+import api from '../../services/api';
+interface SignUpFormData {
+    name: string;
+    cpf: string;
+    email: string;
+    password: string;
+}
 
 export const SignUpUser: React.FC = () => {
-    const passwordInputRef = useRef<TextInput>(null);
     const formRef = useRef<FormHandles>(null);
+    const cpfInputRef = useRef<TextInput>(null);
+    const emailInputRef = useRef<TextInput>(null);
+    const passwordInputRef = useRef<TextInput>(null);
+    const repeatPasswordInputRef = useRef<TextInput>(null);
 
     const navigation = useNavigation()
 
-    interface SignInFormData {
-        user: string;
-        password: string;
-    }
-
-    const handleSignIn = useCallback(async (data: SignInFormData) => {
+    const handleSignUp = useCallback(async (data: SignUpFormData) => {
+        console.log(data)
         try {
-            console.log(data);
-            //     formRef.current?.setErrors({});
-            //     const schema = Yup.object().shape({
-            //         email: Yup.string()
-            //             .email('Digite um e-mail válido')
-            //             .required('E-mail obrigatório'),
-            //         password: Yup.string().required('Senha obrigatória'),
-            //     });
-            //     await schema.validate(data, {
-            //         abortEarly: false,
-            //     });
-            // await signIn({
-            //     email: data.email,
-            //     password: data.password,
-            // });
-            // history.push('/dashboard');
+            formRef.current?.setErrors({});
+
+            const schema = Yup.object().shape({
+                name: Yup.string().required('Nome obrigatório'),
+                cpf: Yup.string().required('CPF obrigatório')
+                    .min(11, 'Necessário 11 dígitos').max(11, 'Necessário 11 dígitos'),
+                email: Yup.string()
+                    .email('Digite um e-mail válido')
+                    .required('E-mail obrigatório'),
+                password: Yup.string().min(6, 'No mínimo 6 dígitos')
+                    .required('Senha obrigatória'),
+                repeatPassword: Yup.string().min(6, 'No mínimo 6 dígitos')
+                    .required('Senha obrigatória'),
+                // .oneOf([Yup.ref('password'), null], 'Passwords does not match'),
+            });
+
+            await schema.validate(data, {
+                abortEarly: false,
+            });
+
+            await api.post('/users', data);
+
+            Alert.alert(
+                "Cadastro Realizado!",
+                "Cadastro de usuário realizado com sucesso!",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    { text: "OK", onPress: () => navigation.navigate('SignIn') }
+                ]
+            );
+
+            // history.push('/');
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err);
+
                 formRef.current?.setErrors(errors);
 
                 return;
             }
 
             Alert.alert(
-                'Erro na autenticação',
-                'Ocorreu um erro ao fazer login, cheque as credenciais.',
+                'Erro no cadastro',
+                'Ocorreu um erro ao fazer cadastro, tente novamente.',
             );
         }
     }, []);
 
+
     return (
         <Container>
-            <ImageBackGround />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 enabled
             >
+                <ImageBackGround />
                 <ScrollView
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={{ flex: 1 }}
@@ -92,24 +120,27 @@ export const SignUpUser: React.FC = () => {
 
                         <Form
                             ref={formRef}
-                            onSubmit={handleSignIn}
+                            onSubmit={(data) => handleSignUp(data)}
                             style={{ width: '100%' }}
                         >
                             <InputContainer>
                                 <Input
-                                    name="userName"
+                                    name="name"
                                     icon="user"
+                                    // minLenght="1"
+                                    // maxLenght="30"
                                     placeholder="Nome Completo"
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     returnKeyType="next"
                                     onSubmitEditing={() => {
-                                        passwordInputRef.current?.focus();
+                                        cpfInputRef.current?.focus();
                                     }}
                                 />
 
                                 <Input
-                                    name="user"
+                                    ref={cpfInputRef}
+                                    name="cpf"
                                     icon="user"
                                     placeholder="CPF"
                                     autoCapitalize="words"
@@ -117,13 +148,14 @@ export const SignUpUser: React.FC = () => {
                                     autoCorrect={false}
                                     returnKeyType="next"
                                     onSubmitEditing={() => {
-                                        passwordInputRef.current?.focus();
+                                        emailInputRef.current?.focus();
                                     }}
                                 />
 
 
                                 <Input
-                                    name="userEmail"
+                                    ref={emailInputRef}
+                                    name="email"
                                     icon="mail"
                                     placeholder="E-mail"
                                     autoCapitalize="none"
@@ -141,15 +173,15 @@ export const SignUpUser: React.FC = () => {
                                     icon="lock"
                                     placeholder="Senha"
                                     secureTextEntry
-                                    returnKeyType="send"
+                                    returnKeyType="next"
                                     onSubmitEditing={() => {
-                                        formRef.current?.submitForm();
+                                        repeatPasswordInputRef.current?.focus();
                                     }}
                                 />
 
                                 <Input
-                                    ref={passwordInputRef}
-                                    name="password"
+                                    ref={repeatPasswordInputRef}
+                                    name="repeatPassword"
                                     icon="lock"
                                     placeholder="Repetir Senha"
                                     secureTextEntry
@@ -159,28 +191,15 @@ export const SignUpUser: React.FC = () => {
                                     }}
                                 />
                             </InputContainer>
-                        </Form>
 
-                        <ButtonContainer>
-                            <Button
-                                onPress={() => {
-                                    Alert.alert(
-                                        "Cadastro Realizado!",
-                                        "Cadastro de usuário realizado com sucesso!",
-                                        [
-                                            {
-                                                text: "Cancel",
-                                                onPress: () => console.log("Cancel Pressed"),
-                                                style: "cancel"
-                                            },
-                                            { text: "OK", onPress: () => navigation.navigate('SignIn') }
-                                        ]
-                                    );
-                                }}
-                            >
-                                CADASTRAR
-                            </Button>
-                        </ButtonContainer>
+                            <ButtonContainer>
+                                <Button
+                                    onPress={() => { formRef.current?.submitForm() }}
+                                >
+                                    CADASTRAR
+                                </Button>
+                            </ButtonContainer>
+                        </Form>
                     </InputsContainer>
                 </ScrollView>
             </KeyboardAvoidingView>
