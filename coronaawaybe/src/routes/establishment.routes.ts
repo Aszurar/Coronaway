@@ -35,6 +35,8 @@ establishmentRouter.post('/', async (req, res) => {
         cnpj,
         email,
         password,
+        capacity,
+        current_stocking,
         latitude,
         longitude
     } = req.body;
@@ -45,6 +47,8 @@ establishmentRouter.post('/', async (req, res) => {
         cnpj,
         email,
         password,
+        capacity,
+        current_stocking,
         latitude,
         longitude
     })
@@ -56,6 +60,8 @@ establishmentRouter.post('/', async (req, res) => {
         email: establishment.email,
         latitude: establishment.latitude,
         longitude: establishment.latitude,
+        capacity: establishment.capacity,
+        current_stocking: establishment.current_stocking,
         created_at: establishment.created_at,
         updated_at: establishment.updated_at,
     }

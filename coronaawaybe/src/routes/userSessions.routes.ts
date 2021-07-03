@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import AuthenticateUserService from '../services/AuthenticateUserService';
 
-const sessionsRouter = Router();
+const userSessionsRouter = Router();
 
-sessionsRouter.post('/', async (req, res) => {
+userSessionsRouter.post('/', async (req, res) => {
         const { cpf, password } = req.body;
 
         const authenticateUser = new AuthenticateUserService();
@@ -24,4 +24,4 @@ sessionsRouter.post('/', async (req, res) => {
         return res.json({ userWithoutPassword, token });
 })
 
-export default sessionsRouter;
+export default userSessionsRouter;

@@ -30,6 +30,12 @@ class Establishment {
     @Column()
     longitude: string;
 
+    @Column()
+    capacity: number;
+
+    @Column()
+    current_stocking: number;
+
     @CreateDateColumn()
     created_at: Date;
 

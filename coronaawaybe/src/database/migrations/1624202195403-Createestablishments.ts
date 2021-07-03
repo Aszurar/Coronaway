@@ -50,6 +50,16 @@ implements MigrationInterface {
                     },
 
                     {
+                        name: 'capacity',
+                        type: 'int',
+                    },
+
+                    {
+                        name: 'current_stocking',
+                        type: 'int',
+                    },
+
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()',

@@ -8,10 +8,11 @@ interface Request {
     cnpj: string;
     email: string;
     password: string;
+    capacity: number;
+    current_stocking: number;
     latitude: string;
     longitude: string;
 }
-
 
 class CreateEstablishmentService{
     public async execute({
@@ -19,6 +20,8 @@ class CreateEstablishmentService{
         cnpj,
         email,
         password,
+        capacity,
+        current_stocking,
         latitude,
         longitude
     }: Request
@@ -50,6 +53,8 @@ class CreateEstablishmentService{
                 cnpj,
                 email,
                 password: hashedPassword,
+                capacity,
+                current_stocking,
                 latitude,
                 longitude,
             })
