@@ -31,6 +31,9 @@ import ImageBackGround from '../../components/ImageBackGround';
 import Title from '../../components/Title';
 import api from '../../services/api';
 
+//autentificação, geração dos tokens e resgate dos métodos signIn, signOut
+import { useAuth } from '../../hooks/auth';
+
 const SignIn: React.FC = () => {
     const navigation = useNavigation();
     // referência para o input de password para que possamos manipula-lo no input de email
@@ -42,6 +45,10 @@ const SignIn: React.FC = () => {
     // e esse botão por padrão não existe no react-native. Com isso, vamos criá-lo.
     const formRef = useRef<FormHandles>(null);
 
+    const {signIn, user} = useAuth();
+
+    console.log('Dados do usuário no Banco de dados:', user);
+
     interface SignInFormData {
         user: string;
         password: string;
@@ -50,7 +57,7 @@ const SignIn: React.FC = () => {
     const handleSignIn = useCallback(async (data: SignInFormData) => {
 
         try {
-            // console.log(data);
+            console.log('Tamanho do input de cpf/cnpj o carai:',data.user.length);
 
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
@@ -63,31 +70,28 @@ const SignIn: React.FC = () => {
                 abortEarly: false,
             });
 
-            // await signIn({
-            //     email: data.email,
-            //     password: data.password,
-            // });
+            await signIn({
+                cpfOrCnpj: data.user,
+                password: data.password,
+            });
 
-            {
-                const { user, password } = data
-                const cpf_user = {
-                    cpf: user,
-                    password
-                }
-                const cnpj_user = {
-                    cnpj: user,
-                    password
-                }
+                // const { user, password } = data
+                // const cpf_user = {
+                //     cpf: user,
+                //     password
+                // }
+                // const cnpj_user = {
+                //     cnpj: user,
+                //     password
+                // }
 
-                if (user.length === 11) {
-                    console.log('piroquinha: ', cpf_user)
-                    await api.post('./sessions', cpf_user)
-                    navigation.navigate('Map')
-                } else if (user.length === 12) {
-                    console.log("cnpj")
-                }
-            }
-
+                // if (user.length === 11) {
+                //     console.log('piroquinha: ', cpf_user)
+                //     await api.post('./sessions', cpf_user)
+                //     navigation.navigate('Map')
+                // } else if (user.length === 12) {
+                //     console.log("cnpj")
+                // }
 
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
@@ -103,7 +107,7 @@ const SignIn: React.FC = () => {
                 'Ocorreu um erro ao fazer login, cheque as credenciais.',
             );
         }
-    }, []);
+    }, [signIn]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

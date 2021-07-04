@@ -8,6 +8,8 @@ interface filteredStablishmentsInterface {
     name: string;
     latitude: string;
     longitude: string;
+    capacity: number;
+    current_stocking: number;
 }
 
 const establishmentRouter = Router();
@@ -22,8 +24,8 @@ establishmentRouter.get('/', ensureAuthenticated, async (req, res) => {
     const filteredStablishments: filteredStablishmentsInterface[] = []
 
     establishments.forEach((establishment) => {
-        let { latitude, longitude, name } = establishment
-        filteredStablishments.push({ name, latitude, longitude })
+        let { latitude, longitude, name, capacity, current_stocking } = establishment
+        filteredStablishments.push({ name, latitude, longitude, capacity, current_stocking });
     })
 
     return res.json(filteredStablishments);
@@ -35,6 +37,8 @@ establishmentRouter.post('/', async (req, res) => {
         cnpj,
         email,
         password,
+        capacity,
+        current_stocking,
         latitude,
         longitude
     } = req.body;
@@ -45,6 +49,8 @@ establishmentRouter.post('/', async (req, res) => {
         cnpj,
         email,
         password,
+        capacity,
+        current_stocking,
         latitude,
         longitude
     })
@@ -56,6 +62,8 @@ establishmentRouter.post('/', async (req, res) => {
         email: establishment.email,
         latitude: establishment.latitude,
         longitude: establishment.latitude,
+        capacity: establishment.capacity,
+        current_stocking: establishment.current_stocking,
         created_at: establishment.created_at,
         updated_at: establishment.updated_at,
     }
