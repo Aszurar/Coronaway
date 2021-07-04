@@ -13,7 +13,7 @@ establishmentSessionsRouter.post('/', async (req, res) => {
     })
 
 
-    const establishmentWithoutPassword = {
+    const userWithoutPassword = {
         id: establishment.id,
         cnpj: establishment.cnpj,
         name: establishment.name,
@@ -26,7 +26,7 @@ establishmentSessionsRouter.post('/', async (req, res) => {
         updated_at: establishment.updated_at,
     }
 
-    return res.json({ establishmentWithoutPassword, token })
+    return res.json({ userWithoutPassword, token })
 })
 
 export default establishmentSessionsRouter;

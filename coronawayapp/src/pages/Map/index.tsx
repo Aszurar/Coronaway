@@ -29,6 +29,7 @@ import { stablishments } from '../../users';
 import marker_pin from '../../assets/pin.png';
 import Button from '../../components/Button'
 import BurguerItem from '../../components/BurguerItem'
+
 export interface LotacaoProps {
     cor: string;
 }
@@ -168,7 +169,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                         <BurguerItem name="Ajuda" icon="help-circle" page="Account" />
                     </BurguerItemContainer>
                     <BurguerLogOutContainer>
-                        <BurguerItem name="Sair" icon="log-out" page="SignIn" />
+                        <BurguerItem name="Sair" icon="log-out" page="SignIn" logOff />
                     </BurguerLogOutContainer>
                 </ModalBurguerContainer>
             </Modal>
