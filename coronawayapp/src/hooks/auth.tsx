@@ -36,8 +36,8 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, userWithoutPassword] = await AsyncStorage.multiGet([
-        '@GoBarber:token',
-        '@GoBarber:userWithoutPassword',
+        '@CoronaAway:token',
+        '@CoronaAway:userWithoutPassword',
       ]);
 
       if (token[1] && userWithoutPassword[1]) {
@@ -73,15 +73,15 @@ const AuthProvider: React.FC = ({ children }) => {
     console.log("token/userWithoutPassword -> ", token, " ", userWithoutPassword)
 
     await AsyncStorage.multiSet([
-      ['@GoBarber:token', token],
-      ['@GoBarber:userWithoutPassword', JSON.stringify(userWithoutPassword)],
+      ['@CoronaAway:token', token],
+      ['@CoronaAway:userWithoutPassword', JSON.stringify(userWithoutPassword)],
     ]);
 
     setData({ token, userWithoutPassword });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@GoBarber:userWithoutPassword', '@GoBarber:token']);
+    await AsyncStorage.multiRemove(['@CoronaAway:userWithoutPassword', '@CoronaAway:token']);
 
     setData({} as AuthState);
   }, []);

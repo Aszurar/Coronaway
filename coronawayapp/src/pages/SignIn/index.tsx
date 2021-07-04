@@ -74,24 +74,6 @@ const SignIn: React.FC = () => {
                 password: data.password,
             });
 
-            // const { user, password } = data
-            // const cpf_user = {
-            //     cpf: user,
-            //     password
-            // }
-            // const cnpj_user = {
-            //     cnpj: user,
-            //     password
-            // }
-
-            // if (user.length === 11) {
-            //     console.log('piroquinha: ', cpf_user)
-            //     await api.post('./sessions', cpf_user)
-            //     navigation.navigate('Map')
-            // } else if (user.length === 12) {
-            //     console.log("cnpj")
-            // }
-
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err);
