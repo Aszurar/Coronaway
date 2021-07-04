@@ -29,8 +29,18 @@ import { stablishments } from '../../users';
 import marker_pin from '../../assets/pin.png';
 import Button from '../../components/Button'
 import BurguerItem from '../../components/BurguerItem'
+import api from '../../services/api';
+
 export interface LotacaoProps {
     cor: string;
+}
+
+interface Establishment {
+    id: string;
+    name: string;
+    current_stocking: number;
+    latitude: string;
+    longitude: string;
 }
 
 export const Map: React.FC = ({ navigation_drawer }: any) => {
@@ -44,6 +54,8 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     const [Lotacao, setLotacao] = useState<LotacaoProps>();
     const [Lat_Stablishment, setLat_Stablishment] = useState(String);
     const [Long_Stablishment, setLong_Stablishment] = useState(String);
+
+    const [establishment, setEstablishment] = useState<Establishment[]>([]);
 
     useEffect(() => {
         const getLocation = () => {
@@ -61,6 +73,14 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 });
         };
         getLocation();
+
+        async function  getEstablishment() {
+            const response = await api.get('/establishment');
+
+            setEstablishment(response.data);
+        }
+        getEstablishment();
+
     }, []);
 
     function toggleModal() {
@@ -95,15 +115,15 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 }}
                 style={styles.map}
             >
-                {stablishments.map(stablishment => (
+                {establishment.map(stablishment => (
                     <Marker
-                        title={stablishment.nome}
-                        description={stablishment.lotacao}
-                        key={stablishment.cnpj}
+                        title={stablishment.name}
+                        description={String(stablishment.current_stocking)}
+                        key={stablishment.id}
                         onCalloutPress={() => { ShowMarkerModal({ ...stablishment }) }}
                         coordinate={{
-                            latitude: stablishment.latitude,
-                            longitude: stablishment.longitude,
+                            latitude: Number(stablishment.latitude),
+                            longitude: Number(stablishment.longitude),
                         }}
                         image={marker_pin}
                     />
@@ -168,7 +188,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                         <BurguerItem name="Ajuda" icon="help-circle" page="Account" />
                     </BurguerItemContainer>
                     <BurguerLogOutContainer>
-                        <BurguerItem name="Sair" icon="log-out" page="SignIn" />
+                        <BurguerItem name="Sair" icon="log-out" page="SignIn" logOff />
                     </BurguerLogOutContainer>
                 </ModalBurguerContainer>
             </Modal>

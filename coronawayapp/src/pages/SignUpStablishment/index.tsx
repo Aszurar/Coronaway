@@ -50,7 +50,7 @@ export const SignUpStablishment: React.FC = () => {
     interface SignUpFormData {
         name: string;
         cnpj: string;
-        capacidade: string;
+        capacity: string;
         email: string;
         password: string;
     }
@@ -59,6 +59,7 @@ export const SignUpStablishment: React.FC = () => {
         name,
         cnpj,
         email,
+        capacity,
         password,
     }: SignUpFormData, getLatitude, getLongitude) => {
 
@@ -70,8 +71,10 @@ export const SignUpStablishment: React.FC = () => {
             cnpj,
             email,
             password,
+            capacity,
             latitude: getLatitude,
-            longitude: getLongitude
+            longitude: getLongitude,
+            current_stocking: 0
         }
         console.log(newData)
 
@@ -85,10 +88,12 @@ export const SignUpStablishment: React.FC = () => {
                 email: Yup.string()
                     .email('Digite um e-mail válido')
                     .required('E-mail obrigatório'),
+                capacity: Yup.number()
+                    .required('Capacidade obrigatória'),
                 password: Yup.string().min(6, 'No mínimo 6 dígitos')
                     .required('Senha obrigatória'),
                 repeatPassword: Yup.string().min(6, 'No mínimo 6 dígitos')
-                    .required('Senha obrigatória'),
+                // .required('Senha obrigatória'),
                 // .oneOf([Yup.ref('password'), null], 'Passwords does not match'),
             });
 
@@ -187,9 +192,9 @@ export const SignUpStablishment: React.FC = () => {
                                 </AddressView>
                                 <SetLocation getLocation={(latitude: string, longitude: string) => { setGetLatitude(String(latitude)); setGetLongitude(String(longitude)) }} />
 
-                                {/* <Input
+                                <Input
                                     ref={capacityInputRef}
-                                    name="capacidade"
+                                    name="capacity"
                                     icon="user-plus"
                                     placeholder="Capacidade de lotação"
                                     autoCapitalize="words"
@@ -199,7 +204,7 @@ export const SignUpStablishment: React.FC = () => {
                                     onSubmitEditing={() => {
                                         emailInputRef.current?.focus();
                                     }}
-                                /> */}
+                                />
 
                                 <Input
                                     ref={emailInputRef}
@@ -218,8 +223,8 @@ export const SignUpStablishment: React.FC = () => {
                                     ref={passwordInputRef}
                                     name="password"
                                     icon="lock"
-                                    placeholder="Senha (Mínimo 6 dígitos)"
                                     secureTextEntry
+                                    placeholder="Senha (Mínimo 6 dígitos)"
                                     returnKeyType="next"
                                     onSubmitEditing={() => {
                                         repeatPasswordInputRef.current?.focus();
