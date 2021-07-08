@@ -25,6 +25,7 @@ interface AuthContextData {
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  tokenAuth: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -32,12 +33,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(true);
+  const [tokenAuth, setTokenAuth] = useState("");
 
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, userWithoutPassword] = await AsyncStorage.multiGet([
-        '@CoronaAway:token',
-        '@CoronaAway:userWithoutPassword',
+        '@GoBarber:token',
+        '@GoBarber:userWithoutPassword',
       ]);
 
       if (token[1] && userWithoutPassword[1]) {
@@ -71,23 +73,26 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, userWithoutPassword } = response.data;
     console.log("token/userWithoutPassword -> ", token, " ", userWithoutPassword)
+    setTokenAuth(token)
+    console.log("token auth -> ", token)
+
 
     await AsyncStorage.multiSet([
-      ['@CoronaAway:token', token],
-      ['@CoronaAway:userWithoutPassword', JSON.stringify(userWithoutPassword)],
+      ['@GoBarber:token', token],
+      ['@GoBarber:userWithoutPassword', JSON.stringify(userWithoutPassword)],
     ]);
 
     setData({ token, userWithoutPassword });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@CoronaAway:userWithoutPassword', '@CoronaAway:token']);
+    await AsyncStorage.multiRemove(['@GoBarber:userWithoutPassword', '@GoBarber:token']);
 
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.userWithoutPassword, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ user: data.userWithoutPassword, signIn, signOut, loading, tokenAuth }}>
       {children}
     </AuthContext.Provider>
   );

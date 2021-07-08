@@ -225,6 +225,7 @@ export const SignUpStablishment: React.FC = () => {
                                     icon="lock"
                                     secureTextEntry
                                     placeholder="Senha (Mínimo 6 dígitos)"
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="next"
                                     onSubmitEditing={() => {
                                         repeatPasswordInputRef.current?.focus();
@@ -237,6 +238,7 @@ export const SignUpStablishment: React.FC = () => {
                                     icon="lock"
                                     placeholder="Repetir Senha"
                                     secureTextEntry
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="send"
                                     onSubmitEditing={() => {
                                         formRef.current?.submitForm();

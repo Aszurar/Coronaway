@@ -19,7 +19,7 @@ export const BurguerContainer = styled.TouchableOpacity`
 export const ModalContainer = styled.View`
     flex: 1;
     position: absolute;
-    bottom: -${Dimensions.get('window').height * 0.05}px;;
+    bottom: -${Dimensions.get('window').height * 0.06}px;;
     left: -${Dimensions.get('window').width * 0.05}px;
     border-radius: 30px;
     width: ${Dimensions.get('window').width}px;

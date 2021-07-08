@@ -133,6 +133,7 @@ const SignIn: React.FC = () => {
                                     icon="lock"
                                     placeholder="Senha"
                                     secureTextEntry
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="send"
                                     onSubmitEditing={() => {
                                         formRef.current?.submitForm();
