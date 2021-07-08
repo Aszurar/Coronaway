@@ -29,7 +29,6 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import ImageBackGround from '../../components/ImageBackGround';
 import Title from '../../components/Title';
-import api from '../../services/api';
 
 //autentificação, geração dos tokens e resgate dos métodos signIn, signOut
 import { useAuth } from '../../hooks/auth';
@@ -45,7 +44,7 @@ const SignIn: React.FC = () => {
     // e esse botão por padrão não existe no react-native. Com isso, vamos criá-lo.
     const formRef = useRef<FormHandles>(null);
 
-    const {signIn, user} = useAuth();
+    const { signIn, user } = useAuth();
 
     console.log('Dados do usuário no Banco de dados:', user);
 
@@ -57,7 +56,7 @@ const SignIn: React.FC = () => {
     const handleSignIn = useCallback(async (data: SignInFormData) => {
 
         try {
-            console.log('Tamanho do input de cpf/cnpj o carai:',data.user.length);
+            console.log('Tamanho do input de cpf/cnpj o carai:', data.user.length);
 
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
@@ -75,24 +74,6 @@ const SignIn: React.FC = () => {
                 password: data.password,
             });
 
-                // const { user, password } = data
-                // const cpf_user = {
-                //     cpf: user,
-                //     password
-                // }
-                // const cnpj_user = {
-                //     cnpj: user,
-                //     password
-                // }
-
-                // if (user.length === 11) {
-                //     console.log('piroquinha: ', cpf_user)
-                //     await api.post('./sessions', cpf_user)
-                //     navigation.navigate('Map')
-                // } else if (user.length === 12) {
-                //     console.log("cnpj")
-                // }
-
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err);
@@ -107,7 +88,7 @@ const SignIn: React.FC = () => {
                 'Ocorreu um erro ao fazer login, cheque as credenciais.',
             );
         }
-    }, [signIn]);
+    }, []);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -152,6 +133,7 @@ const SignIn: React.FC = () => {
                                     icon="lock"
                                     placeholder="Senha"
                                     secureTextEntry
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="send"
                                     onSubmitEditing={() => {
                                         formRef.current?.submitForm();

@@ -6,6 +6,7 @@ import CreateEstablishmentService from '../services/CreateEstablishmentService';
 import UpdateEstablishmentService from '../services/UpdateEstablishmentService';
 
 interface filteredStablishmentsInterface {
+    id: string;
     name: string;
     latitude: string;
     longitude: string;
@@ -23,8 +24,8 @@ establishmentRouter.get('/', ensureAuthenticated, async (req, res) => {
     const filteredStablishments: filteredStablishmentsInterface[] = []
 
     establishments.forEach((establishment) => {
-        let { latitude, longitude, name, capacity, current_stocking } = establishment
-        filteredStablishments.push({ name, latitude, longitude, capacity, current_stocking });
+        let { id, latitude, longitude, name, capacity, current_stocking } = establishment
+        filteredStablishments.push({ id, name, latitude, longitude, capacity, current_stocking });
     })
 
     return res.json(filteredStablishments);

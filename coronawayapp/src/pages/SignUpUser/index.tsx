@@ -172,6 +172,7 @@ export const SignUpUser: React.FC = () => {
                                     name="password"
                                     icon="lock"
                                     placeholder="Senha"
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     secureTextEntry
                                     returnKeyType="next"
                                     onSubmitEditing={() => {
@@ -185,6 +186,7 @@ export const SignUpUser: React.FC = () => {
                                     icon="lock"
                                     placeholder="Repetir Senha"
                                     secureTextEntry
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="send"
                                     onSubmitEditing={() => {
                                         formRef.current?.submitForm();

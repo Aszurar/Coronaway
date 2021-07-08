@@ -1,103 +1,111 @@
 import React, {
-    createContext,
-    useCallback,
-    useContext,
-    useState,
-    useEffect,
-  } from 'react';
-  import AsyncStorage from '@react-native-community/async-storage';
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../services/api';
 import { AxiosResponse } from 'axios';
 
-  interface AuthState {
-    token: string;
-    user: object;
-  }
+interface AuthState {
+  token: string;
+  userWithoutPassword: object;
+}
 
-  interface SignInCredentials {
-    cpfOrCnpj: string;
-    password: string;
-  }
+interface SignInCredentials {
+  cpfOrCnpj: string;
+  password: string;
+}
 
-  interface AuthContextData {
-    user: object;
-    loading: boolean;
-    signIn(credentials: SignInCredentials): Promise<void>;
-    signOut(): void;
-  }
+interface AuthContextData {
+  user: object;
+  loading: boolean;
+  signIn(credentials: SignInCredentials): Promise<void>;
+  signOut(): void;
+  tokenAuth: string;
+}
 
-  const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-  const AuthProvider: React.FC = ({ children }) => {
-    const [data, setData] = useState<AuthState>({} as AuthState);
-    const [loading, setLoading] = useState(true);
+const AuthProvider: React.FC = ({ children }) => {
+  const [data, setData] = useState<AuthState>({} as AuthState);
+  const [loading, setLoading] = useState(true);
+  const [tokenAuth, setTokenAuth] = useState("");
 
-    useEffect(() => {
-      async function loadStoragedData(): Promise<void> {
-        const [token, user] = await AsyncStorage.multiGet([
-          '@GoBarber:token',
-          '@GoBarber:user',
-        ]);
-
-        if (token[1] && user[1]) {
-          setData({ token: token[1], user: JSON.parse(user[1]) });
-        }
-
-        setLoading(false);
-      }
-
-      loadStoragedData();
-    }, []);
-
-    const signIn = useCallback(async ({ cpfOrCnpj, password }) => {
-        let response: AxiosResponse<any>;
-
-        if (cpfOrCnpj.length === 11) {
-            response = await api.post('userSessions', {
-                cpf: cpfOrCnpj,
-                password,
-            });
-        } else {
-            response = await api.post('establishmentsSessions', {
-                cnpj: cpfOrCnpj,
-                password,
-            });
-        }
-    // console.log(response);
-
-
-      const { token, user } = response.data;
-
-      await AsyncStorage.multiSet([
-        ['@GoBarber:token', token],
-        ['@GoBarber:user', JSON.stringify(user)],
+  useEffect(() => {
+    async function loadStoragedData(): Promise<void> {
+      const [token, userWithoutPassword] = await AsyncStorage.multiGet([
+        '@GoBarber:token',
+        '@GoBarber:userWithoutPassword',
       ]);
 
-      setData({ token, user });
-    }, []);
+      if (token[1] && userWithoutPassword[1]) {
+        setData({ token: token[1], userWithoutPassword: JSON.parse(userWithoutPassword[1]) });
+      }
 
-    const signOut = useCallback(async () => {
-      await AsyncStorage.multiRemove(['@GoBarber:user', '@GoBarber:token']);
-
-      setData({} as AuthState);
-    }, []);
-
-    return (
-      <AuthContext.Provider value={{ user: data.user, signIn, signOut, loading }}>
-        {children}
-      </AuthContext.Provider>
-    );
-  };
-
-  function useAuth(): AuthContextData {
-    const context = useContext(AuthContext);
-
-    if (!context) {
-      throw new Error('useAuth must be used within an AuthProvider');
+      setLoading(false);
     }
 
-    return context;
+    loadStoragedData();
+  }, []);
+
+  const signIn = useCallback(async ({ cpfOrCnpj, password }) => {
+    let response;
+    console.log('Auth:     ->   ', cpfOrCnpj, password);
+
+    if (cpfOrCnpj.length === 11) {
+      console.log("to aqui")
+      response = await api.post('/userSessions', {
+        cpf: cpfOrCnpj,
+        password,
+      });
+      // console.log("response -> ", response)
+    } else {
+      response = await api.post('/establishmentsSessions', {
+        cnpj: cpfOrCnpj,
+        password,
+      });
+    }
+
+
+    const { token, userWithoutPassword } = response.data;
+    console.log("token/userWithoutPassword -> ", token, " ", userWithoutPassword)
+    setTokenAuth(token)
+    console.log("token auth -> ", token)
+
+
+    await AsyncStorage.multiSet([
+      ['@GoBarber:token', token],
+      ['@GoBarber:userWithoutPassword', JSON.stringify(userWithoutPassword)],
+    ]);
+
+    setData({ token, userWithoutPassword });
+  }, []);
+
+  const signOut = useCallback(async () => {
+    await AsyncStorage.multiRemove(['@GoBarber:userWithoutPassword', '@GoBarber:token']);
+
+    setData({} as AuthState);
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user: data.userWithoutPassword, signIn, signOut, loading, tokenAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+function useAuth(): AuthContextData {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
   }
 
-  export { AuthProvider, useAuth };
+  return context;
+}
+
+export { AuthProvider, useAuth };
