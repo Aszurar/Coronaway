@@ -21,7 +21,7 @@ class UpdateEstablishmentService{
         })
 
         if (!establishment) {
-            throw new AppError(`establishment doesn't already exist`);
+            throw new AppError(`establishment doesn't already e/*  */xist`);
         }
 
         const establishmentUpdated = {
