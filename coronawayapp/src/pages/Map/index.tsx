@@ -32,11 +32,6 @@ import BurguerItem from '../../components/BurguerItem'
 import api from '../../services/api';
 import { AxiosError } from 'axios';
 import { useAuth } from '../../hooks/auth';
-
-export interface LotacaoProps {
-    cor: string;
-}
-
 interface Establishment {
     name: string;
     current_stocking: number;
@@ -53,7 +48,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalBurguerVisible, setModalBurguerVisible] = useState(false);
     const [Nome, setNome] = useState(String);
-    const [Lotacao, setLotacao] = useState<LotacaoProps>();
+    const [Lotacao, setLotacao] = useState('');
     const [Lat_Stablishment, setLat_Stablishment] = useState(String);
     const [Long_Stablishment, setLong_Stablishment] = useState(String);
 
@@ -77,7 +72,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
             }
         }
     }
-
 
     useEffect(() => {
         getEstablishment();
@@ -106,21 +100,29 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
         setModalBurguerVisible(!isModalBurguerVisible);
     }
 
-    function CalculateLotation({ current_stocking, capacity }: any) {
+    function CalculateLotation(current_stocking: number, capacity: number): string {
+        console.log('current - capacity ->', current_stocking, capacity)
         const lotacaoCalculo = current_stocking / capacity
 
         if (lotacaoCalculo <= 0.30) return ("Baixo")
-        if (lotacaoCalculo > 0.30 && lotacaoCalculo <= 0.80) return ("Moderado")
-        if (lotacaoCalculo > 0.80) return ("Cheio")
+        else if (lotacaoCalculo > 0.30 && lotacaoCalculo <= 0.80) return ("Médio")
+        else return ("Cheio")
     }
 
-    function ShowMarkerModal({ name, current_stocking, latitude, longitude, capacity }: any) {
+    function ShowMarkerModal({ name, current_stocking, latitude, longitude, capacity }: Establishment) {
         toggleModal()
         setNome(name)
-        setLotacao(CalculateLotation(current_stocking, capacity))
+        Lotacao
         setLat_Stablishment(latitude)
         setLong_Stablishment(longitude)
     };
+
+    useEffect(() => {
+        establishment.map(item => {
+            setLotacao(CalculateLotation(item.current_stocking, item.capacity))
+            console.log('MAMADEIRA DE CACETE', item.current_stocking)
+        })
+    }, [establishment])
 
     function handleOpenGoogleMapRoutes() {
         Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${Lat_Stablishment},${Long_Stablishment}`)
@@ -138,19 +140,21 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 }}
                 style={styles.map}
             >
-                {establishment.map(stablishment => (
-                    <Marker
-                        title={stablishment.name}
-                        description={String(stablishment.current_stocking)}
-                        key={stablishment.name}
-                        onCalloutPress={() => { ShowMarkerModal({ ...stablishment }) }}
-                        coordinate={{
-                            latitude: Number(stablishment.latitude),
-                            longitude: Number(stablishment.longitude),
-                        }}
-                        image={marker_pin}
-                    />
-                ))}
+                {
+                    // useEffect
+                    establishment.map(stablishment => (
+                        <Marker
+                            title={stablishment.name}
+                            // description={Lotacao}
+                            key={stablishment.name}
+                            onCalloutPress={() => { ShowMarkerModal({ ...stablishment }) }}
+                            coordinate={{
+                                latitude: Number(stablishment.latitude),
+                                longitude: Number(stablishment.longitude),
+                            }}
+                            image={marker_pin}
+                        />
+                    ))}
             </MapView>
             <Modal
                 isVisible={isModalVisible}
@@ -160,7 +164,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 onBackButtonPress={toggleModal}
                 onBackdropPress={toggleModal}
                 deviceWidth={Dimensions.get('window').width}
-            // swipeDirection={'down'}
             >
                 <ModalContainer>
                     <NameText>{Nome}</NameText>

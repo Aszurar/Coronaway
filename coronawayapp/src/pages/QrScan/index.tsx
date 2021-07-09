@@ -11,13 +11,14 @@ export const QrScan: React.FC = () => {
     const navigation = useNavigation()
     const [camera, setCamera] = useState<RNCamera>();
 
+    // const barcodeRecognized = ({ data }: BarCodeReadEvent) => {
+    //     console.log('data: ', data)
+    //     navigation.navigate('CheckInConfirmation', { data })
+    // }
+
     const barcodeRecognized = ({ data }: BarCodeReadEvent) => {
         console.log('data: ', data)
         navigation.navigate('CheckInConfirmation', { data })
-
-        // const [latitude, longitude] = data.split(',');
-        // console.warn({latitude, longitude});
-
     }
 
     return (

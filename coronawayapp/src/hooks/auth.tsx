@@ -57,7 +57,7 @@ const AuthProvider: React.FC = ({ children }) => {
     console.log('Auth:     ->   ', cpfOrCnpj, password);
 
     if (cpfOrCnpj.length === 11) {
-      console.log("to aqui")
+      // console.log("to aqui")
       response = await api.post('/userSessions', {
         cpf: cpfOrCnpj,
         password,

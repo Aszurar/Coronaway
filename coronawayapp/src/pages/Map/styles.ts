@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components/native';
 import { Dimensions } from 'react-native';
-import { LotacaoProps } from '.';
+
+interface LotacaoProps {
+    cor: string
+}
 
 export const BurguerContainer = styled.TouchableOpacity`
     flex: 1;
@@ -41,7 +44,7 @@ export const LotationText = styled.Text<LotacaoProps>`
     margin-top: 8px;
     margin-bottom: 18px;
     ${({ cor }) => cor == "Baixo" && css`color:  #06bd58`};
-    ${({ cor }) => cor == "Moderado" && css`color: yellow`};
+    ${({ cor }) => cor == "Médio" && css`color: yellow`};
     ${({ cor }) => cor == "Cheio" && css`color: red`};
 `;
 

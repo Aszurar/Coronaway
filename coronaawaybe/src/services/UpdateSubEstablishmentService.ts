@@ -7,7 +7,7 @@ interface Request {
     // current_stocking_update: number;
 }
 
-class UpdateEstablishmentService {
+class UpdateSubEstablishmentService {
     public async execute({
         id,
         // current_stocking_update,
@@ -24,7 +24,7 @@ class UpdateEstablishmentService {
             throw new AppError(`establishment doesn't exist`);
         }
 
-        const stocking_update = establishment.current_stocking + 1
+        const stocking_update = establishment.current_stocking - 1
 
         const establishmentUpdated = {
             ...establishment,
@@ -44,4 +44,4 @@ class UpdateEstablishmentService {
     }
 }
 
-export default UpdateEstablishmentService;
+export default UpdateSubEstablishmentService;
