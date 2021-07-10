@@ -13,10 +13,9 @@ interface StablishmentProps {
     name: string
 }
 
-async function ExitStablishment(idQr: string) {
+export async function ExitStablishment(idQr: string) {
     try {
         const response = await api.patch(`/establishments/sub/${idQr}`)
-        console.log("RESPONSE DO SUB", response.data)
     } catch (error) {
         const err = error as AxiosError
         if (err.response) {

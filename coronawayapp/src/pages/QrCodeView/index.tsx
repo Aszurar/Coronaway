@@ -19,10 +19,7 @@ interface UserInterface {
 
 const QrCodeView: React.FC = () => {
     const { user } = useAuth()
-    const [qrValue, setQrValue] = useState('');
-    const { id } = user as UserInterface
-    setQrValue(id)
-    console.log('user scan ->', id)
+    const { id } = user as UserProps
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <BackButton />
@@ -31,7 +28,7 @@ const QrCodeView: React.FC = () => {
                 <QrContainer>
                     <View style={styles.containerQr}>
                         <QRCode
-                            value={qrValue ? qrValue : 'NA'}
+                            value={id ? id : 'NA'}
                             size={250}
                             color="black"
                             backgroundColor="white"

@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { View, TouchableWithoutFeedback, Text, Alert } from 'react-native'
 import { BarCodeReadEvent, RNCamera } from 'react-native-camera';
 
-import { Container, ScanTitleView, ScanTitle, ScanText } from './styles'
+import { Container, ScanTitleView, ScanTitle, ScanText, ButtonContainer } from './styles'
 import { useNavigation } from '@react-navigation/native'
 import Mask from '../../components/Mask';
 import BackButton from '../../components/BackButton'
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import { AxiosError } from 'axios';
+import Button from '../../components/Button';
+import { ExitStablishment } from '../CheckInConfirmation';
 
 
 interface StablishmentProps {
@@ -17,6 +19,7 @@ interface StablishmentProps {
 }
 
 export const QrScan: React.FC = () => {
+    const { user } = useAuth()
     const navigation = useNavigation()
     const [camera, setCamera] = useState<RNCamera>();
     const [isReading, setIsReading] = useState(false);
@@ -40,8 +43,13 @@ export const QrScan: React.FC = () => {
     }
 
     const barcodeRecognized = async ({ data }: BarCodeReadEvent) => {
-        await getStablishment(data)
-        navigation.navigate('CheckInConfirmation', { stablishment })
+        if (user.cpf) {
+            getStablishment(data)
+            navigation.navigate('CheckInConfirmation', { stablishment })
+        } else {
+            getStablishment(user.id)
+            navigation.navigate('CheckInConfirmation', { stablishment })
+        }
     }
 
     return (
@@ -62,7 +70,6 @@ export const QrScan: React.FC = () => {
             <ScanTitleView>
                 <ScanTitle>Escanear QR Code</ScanTitle>
             </ScanTitleView>
-
         </Container>
     )
 }

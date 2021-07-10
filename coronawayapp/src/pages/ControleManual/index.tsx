@@ -1,14 +1,17 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native';
-import { ButtonContainer, ButtonSpace, Container, OptionsText, CoronaContainer, CoronaImg } from './styles';
+import { Alert, SafeAreaView } from 'react-native';
+import { Container, ButtonContainer, ButtonSpace, OptionsText } from './styles';
 
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
 import Corona from '../../assets/corona.png'
+import { ExitStablishment } from '../CheckInConfirmation';
+import { useAuth } from '../../hooks/auth';
 
-const QrOptions: React.FC = () => {
+const ControleManual: React.FC = () => {
     const navigation = useNavigation();
+    const { user } = useAuth()
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -18,11 +21,17 @@ const QrOptions: React.FC = () => {
 
                 <ButtonContainer>
                     <Button onPress={() => {
-                        navigation.navigate('ControleManual');
-                    }}
-                    >
-                        Controle Manual
-                    </Button>
+                        ExitStablishment(user.id)
+                        Alert.alert("Cliente Removido",
+                            "Um cliente deixou o estabelecimento.",
+                            [
+                                {
+                                    text: "Ok",
+                                }
+
+                            ])
+                    }}>Remover cliente</Button>
+
                     <ButtonSpace />
                     <Button
                         onPress={() => {
@@ -40,4 +49,4 @@ const QrOptions: React.FC = () => {
     );
 };
 
-export default QrOptions;
+export default ControleManual;
