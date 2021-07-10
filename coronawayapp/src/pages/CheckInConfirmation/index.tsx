@@ -1,20 +1,35 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import BackButton from '../../components/BackButton'
 import Check from '../../assets/Check.png'
-import { Container, ConfirmationText, TextContainer, GreenText, CheckImg, ButtonContainer } from './styles'
+import { Container, ConfirmationText, TextContainer, GreenText, CheckImg, ButtonContainer, ButtonContainerExit } from './styles'
 import Button from '../../components/Button'
+import { AxiosError } from 'axios'
+import api from '../../services/api'
 
 interface StablishmentProps {
     id: string,
     name: string
 }
 
+async function ExitStablishment(idQr: string) {
+    try {
+        const response = await api.patch(`/establishments/sub/${idQr}`)
+        console.log("RESPONSE DO SUB", response.data)
+    } catch (error) {
+        const err = error as AxiosError
+        if (err.response) {
+            console.log(err.response.status)
+            console.log(err.response.data)
+        }
+    }
+}
+
 const CheckInConfirmation = ({ route }: any) => {
-    const { data } = route.params
+    const { stablishment } = route.params
     const navigation = useNavigation()
+    console.log('PEDRAO PORRA ', stablishment)
 
     return (
         <Container>
@@ -23,8 +38,18 @@ const CheckInConfirmation = ({ route }: any) => {
                 <ConfirmationText>Check in realizado!</ConfirmationText>
                 <CheckImg source={Check} />
                 <ConfirmationText> Bem vindo à</ConfirmationText>
-                <GreenText> {data.name}</GreenText>
+                <GreenText> {stablishment?.name}</GreenText>
             </TextContainer>
+            <ButtonContainerExit>
+                <Button
+                    onPress={() => {
+                        ExitStablishment(stablishment?.id)
+                        navigation.navigate('Map');
+                    }}
+                >
+                    Sair do local
+                </Button>
+            </ButtonContainerExit>
             <ButtonContainer>
                 <Button
                     onPress={() => {

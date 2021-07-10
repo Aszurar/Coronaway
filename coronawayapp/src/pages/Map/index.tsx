@@ -53,27 +53,23 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     const [Long_Stablishment, setLong_Stablishment] = useState(String);
 
     const [establishment, setEstablishment] = useState<Establishment[]>([]);
-    const { tokenAuth } = useAuth()
 
-    async function getEstablishment() {
-        try {
-            const response = await api.get('/establishments', {
-                headers: {
-                    Authorization: `Bearer ${tokenAuth}`
-                }
-            })
-            setEstablishment(response.data);
-            console.log("sorvete de frango -> ", response.data)
-        } catch (error) {
-            const err = error as AxiosError
-            if (err.response) {
-                console.log(err.response.status)
-                console.log(err.response.data)
-            }
-        }
-    }
 
     useEffect(() => {
+        async function getEstablishment() {
+            try {
+                const response = await api.get('/establishments')
+                setEstablishment(response.data);
+                // console.log("sorvete de frango -> ", response.data)
+            } catch (error) {
+                const err = error as AxiosError
+                if (err.response) {
+                    console.log(err.response.status)
+                    console.log(err.response.data)
+                }
+            }
+        }
+
         getEstablishment();
 
         const getLocation = () => {
@@ -101,7 +97,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     }
 
     function CalculateLotation(current_stocking: number, capacity: number): string {
-        console.log('current - capacity ->', current_stocking, capacity)
+        // console.log('current - capacity ->', current_stocking, capacity)
         const lotacaoCalculo = current_stocking / capacity
 
         if (lotacaoCalculo <= 0.30) return ("Baixo")
@@ -120,7 +116,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     useEffect(() => {
         establishment.map(item => {
             setLotacao(CalculateLotation(item.current_stocking, item.capacity))
-            console.log('MAMADEIRA DE CACETE', item.current_stocking)
+            // console.log('lOTACAO', item.current_stocking)
         })
     }, [establishment])
 

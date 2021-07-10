@@ -9,7 +9,7 @@ import BackButton from '../../components/BackButton'
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import { AxiosError } from 'axios';
-const { tokenAuth } = useAuth()
+
 
 interface StablishmentProps {
     id: string,
@@ -19,15 +19,16 @@ interface StablishmentProps {
 export const QrScan: React.FC = () => {
     const navigation = useNavigation()
     const [camera, setCamera] = useState<RNCamera>();
+    const [isReading, setIsReading] = useState(false);
+    const [name, setname] = useState('');
     const [stablishment, setStablishment] = useState<StablishmentProps>();
 
-    async function getStablishment(id: string) {
+    async function getStablishment(idQr: string) {
         try {
-            const response = await api.get(`/establishments/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${tokenAuth}`
-                }
-            })
+            if (isReading) return
+            setIsReading(true)
+
+            const response = await api.patch(`/establishments/add/${idQr}`)
             setStablishment(response.data);
         } catch (error) {
             const err = error as AxiosError
@@ -37,14 +38,9 @@ export const QrScan: React.FC = () => {
             }
         }
     }
-    // const barcodeRecognized = ({ data }: BarCodeReadEvent) => {
-    //     console.log('data: ', data)
-    //     navigation.navigate('CheckInConfirmation', { data })
-    // }
 
     const barcodeRecognized = async ({ data }: BarCodeReadEvent) => {
-        // await getStablishment(data)
-        console.log('data: ', data)
+        await getStablishment(data)
         navigation.navigate('CheckInConfirmation', { stablishment })
     }
 
@@ -55,7 +51,6 @@ export const QrScan: React.FC = () => {
                 style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
                 onBarCodeRead={barcodeRecognized}
             >
-
                 <Mask />
 
                 <ScanText>Escaneando...</ScanText>

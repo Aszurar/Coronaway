@@ -38,8 +38,8 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, userWithoutPassword] = await AsyncStorage.multiGet([
-        '@GoBarber:token',
-        '@GoBarber:userWithoutPassword',
+        '@coronaway:token',
+        '@coronaway:userWithoutPassword',
       ]);
 
       if (token[1] && userWithoutPassword[1]) {
@@ -57,12 +57,10 @@ const AuthProvider: React.FC = ({ children }) => {
     console.log('Auth:     ->   ', cpfOrCnpj, password);
 
     if (cpfOrCnpj.length === 11) {
-      // console.log("to aqui")
       response = await api.post('/userSessions', {
         cpf: cpfOrCnpj,
         password,
       });
-      // console.log("response -> ", response)
     } else {
       response = await api.post('/establishmentsSessions', {
         cnpj: cpfOrCnpj,
@@ -70,23 +68,22 @@ const AuthProvider: React.FC = ({ children }) => {
       });
     }
 
-
     const { token, userWithoutPassword } = response.data;
     console.log("token/userWithoutPassword -> ", token, " ", userWithoutPassword)
     setTokenAuth(token)
     console.log("token auth -> ", token)
 
-
     await AsyncStorage.multiSet([
-      ['@GoBarber:token', token],
-      ['@GoBarber:userWithoutPassword', JSON.stringify(userWithoutPassword)],
+      ['@coronaway:token', token],
+      ['@coronaway:userWithoutPassword', JSON.stringify(userWithoutPassword)],
     ]);
 
+    api.defaults.headers.authorization = `Bearer ${token}`
     setData({ token, userWithoutPassword });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@GoBarber:userWithoutPassword', '@GoBarber:token']);
+    await AsyncStorage.multiRemove(['@coronaway:userWithoutPassword', '@coronaway:token']);
 
     setData({} as AuthState);
   }, []);
