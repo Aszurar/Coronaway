@@ -60,7 +60,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
             try {
                 const response = await api.get('/establishments')
                 setEstablishment(response.data);
-                // console.log("sorvete de frango -> ", response.data)
             } catch (error) {
                 const err = error as AxiosError
                 if (err.response) {
@@ -116,7 +115,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     useEffect(() => {
         establishment.map(item => {
             setLotacao(CalculateLotation(item.current_stocking, item.capacity))
-            // console.log('lOTACAO', item.current_stocking)
         })
     }, [establishment])
 
