@@ -32,6 +32,27 @@ establishmentRouter.get('/', ensureAuthenticated, async (req, res) => {
     return res.json(filteredStablishments);
 })
 
+establishmentRouter.get('/:id', ensureAuthenticated, async (req, res) => {
+    // console.log(req.user);
+    const { id } = req.params
+
+    const establishmentRepository = getRepository(Establishment);
+    const establishment = await establishmentRepository.findOne({
+        where: { id }
+    })
+
+    if (!establishment) {
+        throw new Error('Deu errado')
+    }
+
+    const establishmentWithoutPassword = {
+        id: establishment.id,
+        name: establishment.name,
+    }
+
+    return res.json(establishmentWithoutPassword);
+})
+
 establishmentRouter.patch('/add/:id', ensureAuthenticated, async (req, res) => {
     const { id } = req.params;
 

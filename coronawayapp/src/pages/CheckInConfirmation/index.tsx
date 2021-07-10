@@ -7,6 +7,11 @@ import Check from '../../assets/Check.png'
 import { Container, ConfirmationText, TextContainer, GreenText, CheckImg, ButtonContainer } from './styles'
 import Button from '../../components/Button'
 
+interface StablishmentProps {
+    id: string,
+    name: string
+}
+
 const CheckInConfirmation = ({ route }: any) => {
     const { data } = route.params
     const navigation = useNavigation()
@@ -18,7 +23,7 @@ const CheckInConfirmation = ({ route }: any) => {
                 <ConfirmationText>Check in realizado!</ConfirmationText>
                 <CheckImg source={Check} />
                 <ConfirmationText> Bem vindo à</ConfirmationText>
-                <GreenText> {data}</GreenText>
+                <GreenText> {data.name}</GreenText>
             </TextContainer>
             <ButtonContainer>
                 <Button
