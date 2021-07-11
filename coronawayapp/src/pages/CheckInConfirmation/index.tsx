@@ -41,6 +41,7 @@ const CheckInConfirmation = ({ route }: any) => {
             </TextContainer>
             <ButtonContainerExit>
                 <Button
+                    color="red"
                     onPress={() => {
                         ExitStablishment(stablishment?.id)
                         navigation.navigate('Map');

@@ -23,7 +23,6 @@ export const QrScan: React.FC = () => {
     const navigation = useNavigation()
     const [camera, setCamera] = useState<RNCamera>();
     const [isReading, setIsReading] = useState(false);
-    const [name, setname] = useState('');
     const [stablishment, setStablishment] = useState<StablishmentProps>();
 
     async function getStablishment(idQr: string) {
@@ -43,13 +42,8 @@ export const QrScan: React.FC = () => {
     }
 
     const barcodeRecognized = async ({ data }: BarCodeReadEvent) => {
-        if (user.cpf) {
-            getStablishment(data)
-            navigation.navigate('CheckInConfirmation', { stablishment })
-        } else {
-            getStablishment(user.id)
-            navigation.navigate('CheckInConfirmation', { stablishment })
-        }
+        getStablishment(data)
+        navigation.navigate('CheckInConfirmation', { stablishment })
     }
 
     return (

@@ -192,6 +192,7 @@ export const SignUpStablishment: React.FC = () => {
                                 </AddressView>
                                 <SetLocation getLocation={(latitude: string, longitude: string) => { setGetLatitude(String(latitude)); setGetLongitude(String(longitude)) }} />
 
+
                                 <Input
                                     ref={capacityInputRef}
                                     name="capacity"
@@ -241,14 +242,30 @@ export const SignUpStablishment: React.FC = () => {
                                     style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="send"
                                     onSubmitEditing={() => {
-                                        formRef.current?.submitForm();
+                                        if (getLatitude) {
+                                            { formRef.current?.submitForm() }
+                                        } else {
+                                            Alert.alert(
+                                                'Erro no cadastro',
+                                                'Por favor, selecione uma localização',
+                                            )
+                                        }
                                     }}
                                 />
                             </InputContainer>
 
                             <ButtonContainer>
                                 <Button
-                                    onPress={() => { formRef.current?.submitForm() }}
+                                    onPress={() => {
+                                        if (getLatitude) {
+                                            { formRef.current?.submitForm() }
+                                        } else {
+                                            Alert.alert(
+                                                'Erro no cadastro',
+                                                'Por favor, selecione uma localização',
+                                            )
+                                        }
+                                    }}
                                 >
                                     CADASTRAR
                                 </Button>
@@ -257,7 +274,7 @@ export const SignUpStablishment: React.FC = () => {
                     </InputsContainer>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </Container>
+        </Container >
     );
 };
 

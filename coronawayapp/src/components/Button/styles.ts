@@ -1,11 +1,16 @@
-import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
+import styled, { css } from 'styled-components/native';
+import { Button, Dimensions } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled(RectButton)`
+interface ButtonColor {
+    cor?: string;
+}
+
+export const Container = styled(RectButton) <ButtonColor>`
     width: 100%;
     height: 50px;
     background-color: #06bd58;
+    ${({ cor }) => cor == "red" && css`background-color:  #AF0900`};
     border-radius: ${Dimensions.get('window').width * 0.5}px;
 
     align-items: center;

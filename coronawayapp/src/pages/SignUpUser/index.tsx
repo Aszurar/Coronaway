@@ -127,8 +127,6 @@ export const SignUpUser: React.FC = () => {
                                 <Input
                                     name="name"
                                     icon="user"
-                                    // minLenght="1"
-                                    // maxLenght="30"
                                     placeholder="Nome Completo"
                                     autoCapitalize="none"
                                     autoCorrect={false}

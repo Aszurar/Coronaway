@@ -29,10 +29,6 @@ export const CheckImg = styled.Image`
 `
 export const ButtonContainer = styled.View`
     margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.10}px;
-    /* flex: 1; */
-    /* width: 100%; */
-    /* justify-content: center; */
-    /* align-items: center; */
 `
 export const ButtonContainerExit = styled.View`
     margin: -${Dimensions.get('window').width * 0.12}px ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.02}px;
