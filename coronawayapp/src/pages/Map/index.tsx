@@ -55,19 +55,20 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     const [establishment, setEstablishment] = useState<Establishment[]>([]);
 
 
-    useEffect(() => {
-        async function getEstablishment() {
-            try {
-                const response = await api.get('/establishments')
-                setEstablishment(response.data);
-            } catch (error) {
-                const err = error as AxiosError
-                if (err.response) {
-                    console.log(err.response.status)
-                    console.log(err.response.data)
-                }
+    async function getEstablishment() {
+        try {
+            const response = await api.get('/establishments')
+            setEstablishment(response.data);
+        } catch (error) {
+            const err = error as AxiosError
+            if (err.response) {
+                console.log(err.response.status)
+                console.log(err.response.data)
             }
         }
+    }
+
+    useEffect(() => {
 
         getEstablishment();
 
@@ -105,6 +106,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     }
 
     function ShowMarkerModal({ name, current_stocking, latitude, longitude, capacity }: Establishment) {
+        getEstablishment()
         toggleModal()
         setNome(name)
         Lotacao
