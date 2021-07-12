@@ -11,6 +11,7 @@ import { useAuth } from '../../hooks/auth';
 import { AxiosError } from 'axios';
 import api from '../../services/api';
 import { useState } from 'react';
+import CoronaSpin from '../../components/CoronaSpin';
 
 
 async function addClient(id: string) {
@@ -50,7 +51,6 @@ const ControleManual: React.FC = () => {
 
     setInterval(() => {
         setTime(!time)
-        console.log('Jesus abençoa meu cu kk')
     }, 10000);
 
     useEffect(() => {
@@ -78,7 +78,6 @@ const ControleManual: React.FC = () => {
                         onPress={() => {
                             addClient(user.id)
                             setBool(!bool)
-                            // getLotation(user.id)
                             Alert.alert("Cliente Adicionado",
                                 "Um cliente chegou ao estabelecimento.",
                                 [
@@ -95,7 +94,6 @@ const ControleManual: React.FC = () => {
                     <Button color="red" onPress={() => {
                         ExitStablishment(user.id)
                         setBool(!bool)
-                        // getLotation(user.id)
                         Alert.alert("Cliente Removido",
                             "Um cliente deixou o estabelecimento.",
                             [
@@ -109,7 +107,7 @@ const ControleManual: React.FC = () => {
                 </ButtonContainer>
             </Container>
             <CoronaContainer>
-                <CoronaImg source={Corona} />
+                <CoronaSpin />
             </CoronaContainer>
         </SafeAreaView>
     );

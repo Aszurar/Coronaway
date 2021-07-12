@@ -26,7 +26,7 @@ export const ButtonContainer = styled.View`
 
 export const CoronaContainer = styled.View`
     position: absolute;
-    bottom: -${Dimensions.get('window').height * 0.22}px;
+    bottom: -${Dimensions.get('window').height * 0.3}px;
     align-self: center;
 
 `

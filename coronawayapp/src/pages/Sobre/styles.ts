@@ -11,14 +11,14 @@ export const NameContainer = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     font-size: 18px;
     color:  white;
-    margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.03}px;
+    margin: 0 ${Dimensions.get('window').width * 0.1}px 0;
     text-align: center;
 `
 export const DireitosContainer = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     font-size: 12px;
     color:  white;
-    margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.03}px;
+    margin: ${Dimensions.get('window').width * 0.02}px ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.03}px;
     text-align: center;
 `
 export const LogoContainer = styled.View`
@@ -32,8 +32,10 @@ export const LogoContainer = styled.View`
 `
 
 export const CovidevsLogo = styled.Image`
-    height: ${Dimensions.get('window').width * 0.4}px;
-    width: ${Dimensions.get('window').width * 0.4}px;
+    top: ${Dimensions.get('window').height * 0.45}px;
+    height: ${Dimensions.get('window').width * 0.3}px;
+    width: ${Dimensions.get('window').width * 0.3}px;
+    position: absolute;
 `
 
 export const TitleContainer = styled.View`

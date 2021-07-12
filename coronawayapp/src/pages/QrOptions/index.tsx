@@ -5,7 +5,8 @@ import { ButtonContainer, ButtonSpace, Container, OptionsText, CoronaContainer, 
 
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
-import Corona from '../../assets/corona.png'
+import CoronaSpin from '../../components/CoronaSpin';
+
 
 const QrOptions: React.FC = () => {
     const navigation = useNavigation();
@@ -34,7 +35,7 @@ const QrOptions: React.FC = () => {
                 </ButtonContainer>
             </Container>
             <CoronaContainer>
-                <CoronaImg source={Corona} />
+                <CoronaSpin />
             </CoronaContainer>
         </SafeAreaView>
     );
