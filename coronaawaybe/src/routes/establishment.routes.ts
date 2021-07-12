@@ -18,7 +18,7 @@ interface filteredStablishmentsInterface {
 const establishmentRouter = Router();
 
 establishmentRouter.get('/', ensureAuthenticated, async (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
 
     const establishmentRepository = getRepository(Establishment);
     const establishments = await establishmentRepository.find();
@@ -48,6 +48,7 @@ establishmentRouter.get('/:id', ensureAuthenticated, async (req, res) => {
     const establishmentWithoutPassword = {
         id: establishment.id,
         name: establishment.name,
+        current_stocking: establishment.current_stocking,
     }
 
     return res.json(establishmentWithoutPassword);

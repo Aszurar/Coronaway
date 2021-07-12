@@ -3,13 +3,13 @@ import { verify } from 'jsonwebtoken';
 import auth from "../config/auth";
 import AppError from "../errors/AppError";
 
-interface TokenPayload{
+interface TokenPayload {
     iat: number;
     exp: number;
     sub: string;
 }
 
-export default function ensureAuthenticated( request: Request, response: Response, next: NextFunction ): void {
+export default function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization;
     if (!authHeader) {
         throw new AppError("JWT Token is missing!", 401);
@@ -21,7 +21,7 @@ export default function ensureAuthenticated( request: Request, response: Respons
     try {
         const decoded = verify(token, secret);
         const { sub } = decoded as TokenPayload;
-        console.log(decoded);
+        // console.log(decoded);
 
         request.user = {
             id: sub,
