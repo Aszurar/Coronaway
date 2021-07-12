@@ -12,10 +12,14 @@ export const NameContainer = styled.Text`
     font-size: 24px;
     color:  #06bd58;
     margin: 0 ${Dimensions.get('window').width * 0.1}px;
+    text-align: center;
+
+    
 `
 export const EmailContainer = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     font-size: 18px;
     color: white;
     margin: 0 ${Dimensions.get('window').width * 0.1}px;
+    text-align: center;
 `

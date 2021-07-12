@@ -7,6 +7,8 @@ import QrOptions from '../pages/QrOptions';
 import QrCodeView from '../pages/QrCodeView';
 import ControleManual from '../pages/ControleManual';
 import Account from '../pages/Account';
+import Sobre from '../pages/Sobre';
+import Ajuda from '../pages/Ajuda';
 
 const App = createStackNavigator();
 
@@ -22,6 +24,8 @@ const AppRoutes: React.FC = () => (
         <App.Screen name="QrOptions" component={QrOptions} />
         <App.Screen name="ControleManual" component={ControleManual} />
         <App.Screen name="CheckInConfirmation" component={CheckInConfirmation} />
+        <App.Screen name="Ajuda" component={Ajuda} />
+        <App.Screen name="Sobre" component={Sobre} />
         <App.Screen name="Account" component={Account} />
         <App.Screen name="QrCodeView" component={QrCodeView} />
     </App.Navigator>

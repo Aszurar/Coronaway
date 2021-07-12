@@ -69,7 +69,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     }
 
     useEffect(() => {
-
         getEstablishment();
 
         const getLocation = () => {
@@ -97,7 +96,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     }
 
     function CalculateLotation(current_stocking: number, capacity: number): string {
-        // console.log('current - capacity ->', current_stocking, capacity)
         const lotacaoCalculo = current_stocking / capacity
 
         if (lotacaoCalculo <= 0.30) return ("Baixo")
@@ -109,16 +107,10 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
         getEstablishment()
         toggleModal()
         setNome(name)
-        Lotacao
+        setLotacao(CalculateLotation(current_stocking, capacity))
         setLat_Stablishment(latitude)
         setLong_Stablishment(longitude)
     };
-
-    useEffect(() => {
-        establishment.map(item => {
-            setLotacao(CalculateLotation(item.current_stocking, item.capacity))
-        })
-    }, [establishment])
 
     function handleOpenGoogleMapRoutes() {
         Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${Lat_Stablishment},${Long_Stablishment}`)
@@ -205,9 +197,10 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                     <BurguerItemContainer>
                         <BurguerItem name="Conta" icon="user" page="Account" />
                         <BurguerItem name="Configurações" icon="settings" page="Account" />
-                        <BurguerItem name="Emergência" icon="phone" page="Account" />
-                        <BurguerItem name="Denunciar" icon="alert-octagon" page="Account" />
-                        <BurguerItem name="Ajuda" icon="help-circle" page="Account" />
+                        <BurguerItem name="Emergência" icon="phone" telephone="192" />
+                        <BurguerItem name="Denunciar" icon="alert-octagon" telephone="197" />
+                        <BurguerItem name="Ajuda" icon="help-circle" page="Ajuda" />
+                        <BurguerItem name="Sobre" icon="github" page="Sobre" />
                     </BurguerItemContainer>
                     <BurguerLogOutContainer>
                         <BurguerItem name="Sair" icon="log-out" page="SignIn" logOff />

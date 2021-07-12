@@ -54,7 +54,6 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = useCallback(async ({ cpfOrCnpj, password }) => {
     let response;
-    console.log('Auth:     ->   ', cpfOrCnpj, password);
 
     if (cpfOrCnpj.length === 11) {
       response = await api.post('/userSessions', {
@@ -69,9 +68,7 @@ const AuthProvider: React.FC = ({ children }) => {
     }
 
     const { token, userWithoutPassword } = response.data;
-    console.log("token/userWithoutPassword -> ", token, " ", userWithoutPassword)
     setTokenAuth(token)
-    console.log("token auth -> ", token)
 
     await AsyncStorage.multiSet([
       ['@coronaway:token', token],

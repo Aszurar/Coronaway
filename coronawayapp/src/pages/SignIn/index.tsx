@@ -45,8 +45,6 @@ const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
 
     const { signIn, user } = useAuth();
-    console.log('LEMBRA DO ADB!!!!!')
-    console.log('Dados do usuário no Banco de dados:', user);
 
     interface SignInFormData {
         user: string;
@@ -56,13 +54,11 @@ const SignIn: React.FC = () => {
     const handleSignIn = useCallback(async (data: SignInFormData) => {
 
         try {
-            console.log('Tamanho do input de cpf/cnpj:', data.user.length);
-
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
                 user: Yup.string()
                     .required('Dados obrigatórios')
-                    .min(11, 'Necessário no minimo 11 dígitos').max(12, 'Necessário no máximo 12 dígitos'),
+                    .min(11, 'Necessário no minimo 11 dígitos').max(14, 'Necessário no máximo 14 dígitos'),
                 password: Yup.string().required('Senha obrigatória'),
             });
             await schema.validate(data, {

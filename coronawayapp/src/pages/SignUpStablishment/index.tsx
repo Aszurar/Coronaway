@@ -84,7 +84,7 @@ export const SignUpStablishment: React.FC = () => {
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
                 cnpj: Yup.string().required('Cnpj obrigatório')
-                    .min(12, 'Necessário 12 dígitos').max(12, 'Necessário 12 dígitos'),
+                    .min(14, 'Necessário 14 dígitos').max(14, 'Necessário 14 dígitos'),
                 email: Yup.string()
                     .email('Digite um e-mail válido')
                     .required('E-mail obrigatório'),
