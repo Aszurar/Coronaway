@@ -28,7 +28,6 @@ export async function ExitStablishment(idQr: string) {
 const CheckInConfirmation = ({ route }: any) => {
     const { stablishment } = route.params
     const navigation = useNavigation()
-    console.log('PEDRAO PORRA ', stablishment)
 
     return (
         <Container>
