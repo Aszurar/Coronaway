@@ -196,7 +196,7 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                     </TitleContainer>
                     <BurguerItemContainer>
                         <BurguerItem name="Conta" icon="user" page="Account" />
-                        <BurguerItem name="Configurações" icon="settings" page="Account" />
+                        <BurguerItem name="Configurações" icon="settings" page="Configuracoes" />
                         <BurguerItem name="Emergência" icon="phone" telephone="192" />
                         <BurguerItem name="Denunciar" icon="alert-octagon" telephone="197" />
                         <BurguerItem name="Ajuda" icon="help-circle" page="Ajuda" />

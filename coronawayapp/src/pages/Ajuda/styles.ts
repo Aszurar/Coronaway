@@ -1,61 +1,98 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { Dimensions } from 'react-native';
+
+interface TextColor {
+    cor?: string;
+}
+
 
 export const Container = styled.View`
     flex: 1;
-    justify-content: center;
-    align-items: center;
+    margin: ${Dimensions.get('window').height * 0.12}px ${Dimensions.get('window').height * 0.05}px;
 `
 
-export const NameContainer = styled.Text`
+export const Title = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    font-size: 28px;
+    color:  white;
+    margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.08}px;
+    text-align: center;
+`
+export const SubTitleContainer = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    /* margin-left: ${Dimensions.get('window').width * 0.08}px; */
+`
+
+export const SubTitle = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     font-size: 18px;
-    color:  white;
-    margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.03}px;
-    text-align: center;
+    color: #06bd58;
+    margin: 0 ${Dimensions.get('window').width * 0.01}px ${Dimensions.get('window').height * 0.03}px;
 `
-export const DireitosContainer = styled.Text`
-    font-family: 'itc-avant-garde-gothic-std-demi';
-    font-size: 12px;
-    color:  white;
-    margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.03}px;
-    text-align: center;
+
+export const CoronaIcone = styled.Image`
+    height: 26px;
+    width: 26px;
 `
-export const LogoContainer = styled.View`
-    height: ${Dimensions.get('window').width * 0.6}px;
-    width: ${Dimensions.get('window').width * 0.6}px;
-    border-radius: 120px;
+
+export const TextContainer = styled.View`
+    margin: 0 ${Dimensions.get('window').width * 0.15}px ${Dimensions.get('window').height * 0.03}px 0;
+    flex-direction: row;
+`
+export const QrContainer = styled.View`
+    height: 48px;
+    width: 48px;
+    margin-right: 15px;
+
     background-color: white;
+    border-radius: 80px;
     align-items: center;
     justify-content: center;
-    margin-bottom: ${Dimensions.get('window').height * 0.05}px;
 `
 
-export const CovidevsLogo = styled.Image`
-    height: ${Dimensions.get('window').width * 0.4}px;
-    width: ${Dimensions.get('window').width * 0.4}px;
+export const QrIcone = styled.Image`
+    height: 34px;
+    width: 34px;
 `
 
-export const TitleContainer = styled.View`
-    margin:-${Dimensions.get('window').height * 0.07}px 0;
-    flex-direction: row;
-`;
+export const NormalText = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    font-size: 14px;
+    color: white;
+`
 
-export const FirstTitle = styled.Text`
-    font-family: 'itc-avant-garde-gothic-std-bold';
-    font-size: ${Dimensions.get('window').width * 0.1}px;
+export const MarkerContainer = styled.View`
+    height: 48px;
+    width: 48px;
+    margin-right: 15px;
 
-    line-height: 173px;
-    color: #f8f8f8;
-    font-style: normal;
-`;
+    align-items: center;
+    justify-content: center;
+`
 
-export const SecondTitle = styled.Text`
-    font-family: 'itc-avant-garde-gothic-std-bold';
-    color: #06bd58;
+export const MarkerIcone = styled.Image`
+    height: 50px;
+    width: 32px;
+`
 
-    font-size: ${Dimensions.get('window').width * 0.1}px;
+export const MenuContainer = styled.View`
+    height: 38px;
+    width: 48px;
+    margin-right: 15px;
 
-    line-height: 173px;
-    font-style: normal;
-`;
+    align-items: center;
+    justify-content: center;
+`
+export const SmallText = styled.Text<TextColor>`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    font-size: 13px;
+    text-align: justify;
+    color: white;
+    ${({ cor }) => cor == "green" && css`color:  #06bd58`};
+    ${({ cor }) => cor == "yellow" && css`color: yellow`};
+    ${({ cor }) => cor == "red" && css`color: red`};
+`
+export const NormalTextContainer = styled.View`
+    margin-bottom: ${Dimensions.get('window').height * 0.03}px;
+`
