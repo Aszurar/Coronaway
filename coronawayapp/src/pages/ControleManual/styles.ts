@@ -9,12 +9,15 @@ export const Container = styled.View`
     padding: 0 40px ${Platform.OS === 'android' ? '150' : '40'}px;
 `;
 
+
+
 export const Title = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #06bd58;
-    font-size: 26px;
+    font-size: 38px;
     margin-top: -${Dimensions.get('window').height * 0.1}px;
     margin-bottom: ${Dimensions.get('window').height * 0.06}px;
+    text-align: center;
 `;
 
 export const CapacityContainer = styled.View`

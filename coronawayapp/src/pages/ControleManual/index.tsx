@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Alert, SafeAreaView } from 'react-native';
-import { Container, ButtonContainer, ButtonSpace, Title, CapacityText, CapacityColorText, CapacityContainer, OptionsText, CoronaContainer, CoronaImg } from './styles';
+import { Container, ButtonContainer, ButtonSpace, Title, TitleContainer, CapacityText, CapacityColorText, CapacityContainer, OptionsText, CoronaContainer, CoronaImg } from './styles';
 
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
@@ -61,7 +61,9 @@ const ControleManual: React.FC = () => {
         <SafeAreaView style={{ flex: 1 }}>
             <BackButton />
             <Container>
+                {/* <TitleContainer> */}
                 <Title>{user.name}</Title>
+                {/* </TitleContainer> */}
                 <CapacityContainer>
                     <CapacityText>
                         Lotação
