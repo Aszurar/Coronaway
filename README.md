@@ -27,12 +27,12 @@ O projeto **CoronaAway** é o
 
 * Página Inicial:
   
-  <img src="https://i.imgur.com/ncJ0PHQ.png" width="250"> 
+  <img src="" width="250"> 
 
  
  * Cadastro:
   
-    <img src="https://i.imgur.com/uP0bQnu.png" width="250">
+    <img src="" width="250">
 
 ___
 ## :interrobang: Motivo
