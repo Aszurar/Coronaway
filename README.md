@@ -1,5 +1,5 @@
 
-# todoapp | Ignite - React-Native
+# CoronaAway | Engenharia de Software
  O projeto **CoronaAway* é um aplicativo mobile .
 <h2 align="center">todoapp</h2>
 
@@ -39,7 +39,7 @@ ___
 
  * Registros de tarefas:
 
-    <img src="https://i.imgur.com/uP0bQnu.png" width="250">
+    <img src="" width="250">
 
 
 Esse projeto tem por objetivo por em prática os conceitos básicos de React Native no desenvolvimento mobile ensinados no 1º capítulo do curso **Ignite** de **React Native**. 
