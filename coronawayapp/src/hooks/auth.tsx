@@ -25,6 +25,7 @@ interface AuthContextData {
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  tokenAuth: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -32,12 +33,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>({} as AuthState);
   const [loading, setLoading] = useState(true);
+  const [tokenAuth, setTokenAuth] = useState("");
 
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
       const [token, userWithoutPassword] = await AsyncStorage.multiGet([
-        '@CoronaAway:token',
-        '@CoronaAway:userWithoutPassword',
+        '@coronaway:token',
+        '@coronaway:userWithoutPassword',
       ]);
 
       if (token[1] && userWithoutPassword[1]) {
@@ -52,15 +54,12 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = useCallback(async ({ cpfOrCnpj, password }) => {
     let response;
-    console.log('Auth:     ->   ', cpfOrCnpj, password);
 
     if (cpfOrCnpj.length === 11) {
-      console.log("to aqui")
       response = await api.post('/userSessions', {
         cpf: cpfOrCnpj,
         password,
       });
-      // console.log("response -> ", response)
     } else {
       response = await api.post('/establishmentsSessions', {
         cnpj: cpfOrCnpj,
@@ -68,26 +67,26 @@ const AuthProvider: React.FC = ({ children }) => {
       });
     }
 
-
     const { token, userWithoutPassword } = response.data;
-    console.log("token/userWithoutPassword -> ", token, " ", userWithoutPassword)
+    setTokenAuth(token)
 
     await AsyncStorage.multiSet([
-      ['@CoronaAway:token', token],
-      ['@CoronaAway:userWithoutPassword', JSON.stringify(userWithoutPassword)],
+      ['@coronaway:token', token],
+      ['@coronaway:userWithoutPassword', JSON.stringify(userWithoutPassword)],
     ]);
 
+    api.defaults.headers.authorization = `Bearer ${token}`
     setData({ token, userWithoutPassword });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@CoronaAway:userWithoutPassword', '@CoronaAway:token']);
+    await AsyncStorage.multiRemove(['@coronaway:userWithoutPassword', '@coronaway:token']);
 
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.userWithoutPassword, signIn, signOut, loading }}>
+    <AuthContext.Provider value={{ user: data.userWithoutPassword, signIn, signOut, loading, tokenAuth }}>
       {children}
     </AuthContext.Provider>
   );

@@ -24,3 +24,11 @@ export const ScanText = styled.Text`
     color: white;
     font-family: 'itc-avant-garde-gothic-std-demi';
 `
+
+export const ButtonContainer = styled.View`
+    /* margin: 0 ${Dimensions.get('window').width * 0.1}px ${Dimensions.get('window').height * 0.10}px; */
+    position: absolute;
+    bottom: ${Dimensions.get('window').width * 0.15}px;
+    left: ${Dimensions.get('window').width * 0.1}px;
+    right: ${Dimensions.get('window').width * 0.1}px;
+`

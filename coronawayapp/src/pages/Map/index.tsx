@@ -30,15 +30,12 @@ import marker_pin from '../../assets/pin.png';
 import Button from '../../components/Button'
 import BurguerItem from '../../components/BurguerItem'
 import api from '../../services/api';
-
-export interface LotacaoProps {
-    cor: string;
-}
-
+import { AxiosError } from 'axios';
+import { useAuth } from '../../hooks/auth';
 interface Establishment {
-    id: string;
     name: string;
     current_stocking: number;
+    capacity: number;
     latitude: string;
     longitude: string;
 }
@@ -51,13 +48,29 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalBurguerVisible, setModalBurguerVisible] = useState(false);
     const [Nome, setNome] = useState(String);
-    const [Lotacao, setLotacao] = useState<LotacaoProps>();
+    const [Lotacao, setLotacao] = useState('');
     const [Lat_Stablishment, setLat_Stablishment] = useState(String);
     const [Long_Stablishment, setLong_Stablishment] = useState(String);
 
     const [establishment, setEstablishment] = useState<Establishment[]>([]);
 
+
+    async function getEstablishment() {
+        try {
+            const response = await api.get('/establishments')
+            setEstablishment(response.data);
+        } catch (error) {
+            const err = error as AxiosError
+            if (err.response) {
+                console.log(err.response.status)
+                console.log(err.response.data)
+            }
+        }
+    }
+
     useEffect(() => {
+        getEstablishment();
+
         const getLocation = () => {
             GetLocation.getCurrentPosition({
                 enableHighAccuracy: true,
@@ -73,14 +86,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 });
         };
         getLocation();
-
-        async function  getEstablishment() {
-            const response = await api.get('/establishment');
-
-            setEstablishment(response.data);
-        }
-        getEstablishment();
-
     }, []);
 
     function toggleModal() {
@@ -90,11 +95,19 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
         setModalBurguerVisible(!isModalBurguerVisible);
     }
 
+    function CalculateLotation(current_stocking: number, capacity: number): string {
+        const lotacaoCalculo = current_stocking / capacity
 
-    function ShowMarkerModal({ nome, lotacao, latitude, longitude }: any) {
+        if (lotacaoCalculo <= 0.30) return ("Baixo")
+        else if (lotacaoCalculo > 0.30 && lotacaoCalculo <= 0.80) return ("Médio")
+        else return ("Cheio")
+    }
+
+    function ShowMarkerModal({ name, current_stocking, latitude, longitude, capacity }: Establishment) {
+        getEstablishment()
         toggleModal()
-        setNome(nome)
-        setLotacao(lotacao)
+        setNome(name)
+        setLotacao(CalculateLotation(current_stocking, capacity))
         setLat_Stablishment(latitude)
         setLong_Stablishment(longitude)
     };
@@ -115,19 +128,21 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 }}
                 style={styles.map}
             >
-                {establishment.map(stablishment => (
-                    <Marker
-                        title={stablishment.name}
-                        description={String(stablishment.current_stocking)}
-                        key={stablishment.id}
-                        onCalloutPress={() => { ShowMarkerModal({ ...stablishment }) }}
-                        coordinate={{
-                            latitude: Number(stablishment.latitude),
-                            longitude: Number(stablishment.longitude),
-                        }}
-                        image={marker_pin}
-                    />
-                ))}
+                {
+                    // useEffect
+                    establishment.map(stablishment => (
+                        <Marker
+                            title={stablishment.name}
+                            // description={Lotacao}
+                            key={stablishment.name}
+                            onCalloutPress={() => { ShowMarkerModal({ ...stablishment }) }}
+                            coordinate={{
+                                latitude: Number(stablishment.latitude),
+                                longitude: Number(stablishment.longitude),
+                            }}
+                            image={marker_pin}
+                        />
+                    ))}
             </MapView>
             <Modal
                 isVisible={isModalVisible}
@@ -137,7 +152,6 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                 onBackButtonPress={toggleModal}
                 onBackdropPress={toggleModal}
                 deviceWidth={Dimensions.get('window').width}
-            // swipeDirection={'down'}
             >
                 <ModalContainer>
                     <NameText>{Nome}</NameText>
@@ -182,10 +196,11 @@ export const Map: React.FC = ({ navigation_drawer }: any) => {
                     </TitleContainer>
                     <BurguerItemContainer>
                         <BurguerItem name="Conta" icon="user" page="Account" />
-                        <BurguerItem name="Configurações" icon="settings" page="Account" />
-                        <BurguerItem name="Emergência" icon="phone" page="Account" />
-                        <BurguerItem name="Denunciar" icon="alert-octagon" page="Account" />
-                        <BurguerItem name="Ajuda" icon="help-circle" page="Account" />
+                        <BurguerItem name="Configurações" icon="settings" page="Configuracoes" />
+                        <BurguerItem name="Emergência" icon="phone" telephone="192" />
+                        <BurguerItem name="Denunciar" icon="alert-octagon" telephone="197" />
+                        <BurguerItem name="Ajuda" icon="help-circle" page="Ajuda" />
+                        <BurguerItem name="Sobre" icon="github" page="Sobre" />
                     </BurguerItemContainer>
                     <BurguerLogOutContainer>
                         <BurguerItem name="Sair" icon="log-out" page="SignIn" logOff />

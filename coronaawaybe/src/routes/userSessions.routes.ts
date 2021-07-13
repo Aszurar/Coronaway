@@ -5,7 +5,6 @@ const userSessionsRouter = Router();
 
 userSessionsRouter.post('/', async (req, res) => {
     const { cpf, password } = req.body;
-    console.log("bilauzada no brioco  ->", cpf, password)
     const authenticateUser = new AuthenticateUserService();
     const { user, token } = await authenticateUser.execute({
         cpf,

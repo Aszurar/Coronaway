@@ -19,8 +19,3 @@ export const QrContainer = styled.View`
     height: ${Dimensions.get('window').height * 0.38}px;
     width: ${Dimensions.get('window').width * 0.7}px;
 `
-
-export const QrImage = styled.Image`
-    height: 100%;
-    width: 100%;
-`;

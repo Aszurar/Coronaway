@@ -9,11 +9,40 @@ export const Container = styled.View`
     padding: 0 40px ${Platform.OS === 'android' ? '150' : '40'}px;
 `;
 
+
+
+export const Title = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    color: #06bd58;
+    font-size: 38px;
+    margin-top: -${Dimensions.get('window').height * 0.1}px;
+    margin-bottom: ${Dimensions.get('window').height * 0.06}px;
+    text-align: center;
+`;
+
+export const CapacityContainer = styled.View`
+    align-items: center;
+`
+
+export const CapacityText = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    color: #fff;
+    font-size: 28px;
+    margin-top: ${Dimensions.get('window').height * 0.04}px;
+    /* margin-bottom: 16px; */
+`;
+
+export const CapacityColorText = styled.Text`
+    font-family: 'itc-avant-garde-gothic-std-demi';
+    color: #06bd58;
+    font-size: 28px;
+`;
+
 export const OptionsText = styled.Text`
     font-family: 'itc-avant-garde-gothic-std-demi';
     color: #fff;
     font-size: 24px;
-    margin-top: ${Dimensions.get('window').height * 0.16}px;
+    margin-top: ${Dimensions.get('window').height * 0.04}px;
     margin-bottom: 16px;
 `;
 

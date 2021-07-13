@@ -84,7 +84,7 @@ export const SignUpStablishment: React.FC = () => {
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome obrigatório'),
                 cnpj: Yup.string().required('Cnpj obrigatório')
-                    .min(12, 'Necessário 12 dígitos').max(12, 'Necessário 12 dígitos'),
+                    .min(14, 'Necessário 14 dígitos').max(14, 'Necessário 14 dígitos'),
                 email: Yup.string()
                     .email('Digite um e-mail válido')
                     .required('E-mail obrigatório'),
@@ -192,6 +192,7 @@ export const SignUpStablishment: React.FC = () => {
                                 </AddressView>
                                 <SetLocation getLocation={(latitude: string, longitude: string) => { setGetLatitude(String(latitude)); setGetLongitude(String(longitude)) }} />
 
+
                                 <Input
                                     ref={capacityInputRef}
                                     name="capacity"
@@ -225,6 +226,7 @@ export const SignUpStablishment: React.FC = () => {
                                     icon="lock"
                                     secureTextEntry
                                     placeholder="Senha (Mínimo 6 dígitos)"
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="next"
                                     onSubmitEditing={() => {
                                         repeatPasswordInputRef.current?.focus();
@@ -237,16 +239,33 @@ export const SignUpStablishment: React.FC = () => {
                                     icon="lock"
                                     placeholder="Repetir Senha"
                                     secureTextEntry
+                                    style={{ fontFamily: 'itc-avant-garde-gothic-std-book' }}
                                     returnKeyType="send"
                                     onSubmitEditing={() => {
-                                        formRef.current?.submitForm();
+                                        if (getLatitude) {
+                                            { formRef.current?.submitForm() }
+                                        } else {
+                                            Alert.alert(
+                                                'Erro no cadastro',
+                                                'Por favor, selecione uma localização',
+                                            )
+                                        }
                                     }}
                                 />
                             </InputContainer>
 
                             <ButtonContainer>
                                 <Button
-                                    onPress={() => { formRef.current?.submitForm() }}
+                                    onPress={() => {
+                                        if (getLatitude) {
+                                            { formRef.current?.submitForm() }
+                                        } else {
+                                            Alert.alert(
+                                                'Erro no cadastro',
+                                                'Por favor, selecione uma localização',
+                                            )
+                                        }
+                                    }}
                                 >
                                     CADASTRAR
                                 </Button>
@@ -255,7 +274,7 @@ export const SignUpStablishment: React.FC = () => {
                     </InputsContainer>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </Container>
+        </Container >
     );
 };
 

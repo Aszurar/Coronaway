@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components/native';
 import { Dimensions } from 'react-native';
-import { LotacaoProps } from '.';
+
+interface LotacaoProps {
+    cor: string
+}
 
 export const BurguerContainer = styled.TouchableOpacity`
     flex: 1;
@@ -19,7 +22,7 @@ export const BurguerContainer = styled.TouchableOpacity`
 export const ModalContainer = styled.View`
     flex: 1;
     position: absolute;
-    bottom: -${Dimensions.get('window').height * 0.05}px;;
+    bottom: -${Dimensions.get('window').height * 0.06}px;;
     left: -${Dimensions.get('window').width * 0.05}px;
     border-radius: 30px;
     width: ${Dimensions.get('window').width}px;
@@ -41,7 +44,7 @@ export const LotationText = styled.Text<LotacaoProps>`
     margin-top: 8px;
     margin-bottom: 18px;
     ${({ cor }) => cor == "Baixo" && css`color:  #06bd58`};
-    ${({ cor }) => cor == "Moderado" && css`color: yellow`};
+    ${({ cor }) => cor == "Médio" && css`color: yellow`};
     ${({ cor }) => cor == "Cheio" && css`color: red`};
 `;
 
